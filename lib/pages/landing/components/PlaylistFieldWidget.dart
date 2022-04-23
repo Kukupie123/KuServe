@@ -1,8 +1,8 @@
-// ignore_for_file: file_names, prefer_const_constructors
+// ignore_for_file: file_names, prefer_const_constructors, sized_box_for_whitespace, avoid_print
 
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:youtube_playlist_combiner/pages/landing/local_provider/homepage_provider.dart';
+import 'package:youtube_playlist_combiner/pages/landing/local_provider/providerHomepage.dart';
 
 class PlaylistFieldWidget extends StatelessWidget {
   PlaylistFieldWidget({Key? key, required this.url, required this.index})
