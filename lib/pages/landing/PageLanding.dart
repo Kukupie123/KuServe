@@ -4,14 +4,14 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:youtube_playlist_combiner/pages/landing/components/HomePageWidget.dart';
 
-class HomePage extends StatefulWidget {
-  const HomePage({Key? key}) : super(key: key);
+class PageLanding extends StatefulWidget {
+  const PageLanding({Key? key}) : super(key: key);
 
   @override
-  State<HomePage> createState() => _HomePageState();
+  State<PageLanding> createState() => _PageLandingState();
 }
 
-class _HomePageState extends State<HomePage> {
+class _PageLandingState extends State<PageLanding> {
   @override
   Widget build(BuildContext context) {
     return Consumer(

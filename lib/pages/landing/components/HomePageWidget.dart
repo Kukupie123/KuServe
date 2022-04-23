@@ -2,7 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:youtube_playlist_combiner/pages/landing/local_provider/homepage_provider.dart';
+import 'package:youtube_playlist_combiner/pages/landing/local_provider/providerHomepage.dart';
 
 class HomePageWidget extends StatefulWidget {
   @override
