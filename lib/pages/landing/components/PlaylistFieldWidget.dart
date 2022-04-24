@@ -17,11 +17,12 @@ class PlaylistFieldWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     tec.text = url;
     return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
       children: [
         Padding(
           padding: EdgeInsetsDirectional.fromSTEB(10, 10, 10, 10),
           child: Container(
-            width: 100,
+            width: MediaQuery.of(context).size.width * 0.7,
             height: 50,
             child: TextFormField(
               controller: tec,

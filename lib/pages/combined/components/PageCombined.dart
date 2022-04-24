@@ -22,37 +22,45 @@ class _CombinedWidgetState extends State<CombinedWidget> {
 
   @override
   Widget build(BuildContext context) {
-    Provider.of<ProviderCombined>(context, listen: false).songsIDs =
-        widget.parentSetting.arguments as List<String?>;
+    var providerCombined =
+        Provider.of<ProviderCombined>(context, listen: false);
 
-    Provider.of<ProviderCombined>(context, listen: false)
-        .getVideoItemsFromSongs();
+    providerCombined.songsIDs = widget.parentSetting.arguments as List<String?>;
+
+    providerCombined.getVideoItemsFromSongs();
 
     return Scaffold(
       body: Container(
         width: MediaQuery.of(context).size.width,
-        child: SingleChildScrollView(child: _videsWidgetDecider()),
+        child: Consumer<ProviderCombined>(
+            child: _videsWidgetDecider(),
+            builder: (context, value, child) =>
+                SingleChildScrollView(child: _videsWidgetDecider())),
       ),
     );
   }
 
   Widget _videsWidgetDecider() {
+    var providerCombined =
+        Provider.of<ProviderCombined>(context, listen: false);
+
     if (Provider.of<ProviderCombined>(context, listen: false).itemVideos ==
         null) {
       return Text("Processing songs");
     } else {
-      if (Provider.of<ProviderCombined>(context, listen: false)
-          .itemVideos!
-          .isEmpty)
+      if (providerCombined.itemVideos!.isEmpty)
         return Text("Processing songs");
       else {
         //songs are there
         return Column(
             children: List.generate(
-                Provider.of<ProviderCombined>(context, listen: false)
-                    .itemVideos!
-                    .length,
-                (index) => SongWidget()));
+                providerCombined.itemVideos!.length,
+                (index) => SongWidget(
+                      desc: providerCombined.itemVideos![index].desc,
+                      id: providerCombined.itemVideos![index].id,
+                      thumb: providerCombined.itemVideos![index].thumbnail,
+                      title: providerCombined.itemVideos![index].title,
+                    )));
       }
     }
   }
