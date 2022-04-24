@@ -3,8 +3,8 @@
 import 'dart:convert';
 import 'dart:io';
 import 'package:http/http.dart' as http;
+import 'package:utube_playlist_combiner/models/MinimalVideo.dart';
 import 'package:utube_playlist_combiner/models/PlaylistItem.dart';
-import 'package:utube_playlist_combiner/models/VideoItem.dart';
 
 /*
  * curl \
@@ -43,12 +43,10 @@ class UtubeService {
     return playlistItem;
   }
 
-  static Future<dynamic> getVideoItemFromSong(String? id) async {
-    String newID = "";
-    if (id != null) newID = id;
+  static Future<MinimalVideoItem> getVideoItemFromSong(String id) async {
     Map<String, String> parameters = {
       'part': 'snippet,contentDetails,statistics',
-      'id': newID,
+      'id': id,
       'key': _key
     };
     Map<String, String> header = {
@@ -63,11 +61,24 @@ class UtubeService {
 Get video from song status exception ''' +
           resp.statusCode.toString());
 
-    print(json.decode(resp.body.toString()));
+    var mapped = json.decode(resp.body);
 
-    VideoItem videoItem = VideoItem.fromJson(json.decode(resp.body));
+    var item = mapped['items'][0];
+    print("Item is " + item.toString());
 
-    return videoItem;
-    //TODO:FIX
+    String desc = item['snippet']['description'];
+    print("DESC IS " + desc);
+    String videoID = item['id'];
+    print("VideoID " + videoID);
+    String title = item['snippet']['title'];
+    print("TITLE : " + title);
+    String thumb = item['snippet']['thumbnails']['default']['url'];
+    print("Thumb is " + thumb);
+    MinimalVideoItem minimalVideoItem =
+        MinimalVideoItem(desc: desc, id: videoID, thumbnail: "", title: title);
+
+    // VideoItem videoItem = VideoItem.fromJson(json.decode(resp.body));
+
+    return minimalVideoItem;
   }
 }
