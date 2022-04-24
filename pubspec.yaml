@@ -32,7 +32,7 @@ dependencies:
   youtube_api: ^1.0.4
   auto_size_text: 3.0.0
   cached_network_image: 3.1.0+1
-  font_awesome_flutter: 8.11.0
+  font_awesome_flutter:
   google_fonts: 2.2.0
   intl: 0.17.0
   json_path: 0.2.1
@@ -43,6 +43,7 @@ dependencies:
   cupertino_icons: ^1.0.2
   provider:
   logger: ^1.1.0
+  motion_tab_bar_v2: ^0.2.3
 
 dev_dependencies:
   flutter_test:

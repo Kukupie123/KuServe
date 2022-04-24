@@ -6,14 +6,14 @@ import 'package:provider/provider.dart';
 import 'components/HomePageWidget.dart';
 import 'local_provider/providerHomepage.dart';
 
-class PageLanding extends StatefulWidget {
-  const PageLanding({Key? key}) : super(key: key);
+class PagePlaylistCombiner extends StatefulWidget {
+  const PagePlaylistCombiner({Key? key}) : super(key: key);
 
   @override
-  State<PageLanding> createState() => _PageLandingState();
+  State<PagePlaylistCombiner> createState() => _PagePlaylistCombinerState();
 }
 
-class _PageLandingState extends State<PageLanding> {
+class _PagePlaylistCombinerState extends State<PagePlaylistCombiner> {
   @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider(

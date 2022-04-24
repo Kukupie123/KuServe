@@ -1,21 +1,28 @@
 // ignore_for_file: prefer_const_constructors, file_names, prefer_const_literals_to_create_immutables
 
 import 'package:flutter/cupertino.dart';
+import 'package:utube_playlist_combiner/pages/HomePage/PageHome.dart';
 import 'package:utube_playlist_combiner/pages/combined/PageCombined.dart';
-import 'package:utube_playlist_combiner/pages/landing/PageLanding.dart';
+import 'package:utube_playlist_combiner/pages/playlist%20combiner/PageLanding.dart';
 
 class Routes {
   static const String playListCombine = "/Playlist-combiner";
-  static const String combined = "/combined";
+  static const String playlistCombined = "/combined";
+  static const String home = "/";
 
   static Route<dynamic> generateRoute(RouteSettings settings) {
     switch (settings.name) {
       case playListCombine:
         return _GeneratePageRoute(settings.arguments,
-            routeName: settings.name!, widget: PageLanding());
-      case combined:
+            routeName: settings.name!, widget: PagePlaylistCombiner());
+
+      case playlistCombined:
         return _GeneratePageRoute(settings.arguments,
-            routeName: settings.name!, widget: PageCombined());
+            routeName: settings.name!, widget: PagePlaylistCombined());
+
+      case home:
+        return _GeneratePageRoute(settings.arguments,
+            widget: PageHome(), routeName: settings.name!);
     }
     throw Exception("No route found");
   }

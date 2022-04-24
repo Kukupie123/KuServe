@@ -5,8 +5,8 @@ import 'package:provider/provider.dart';
 import 'package:utube_playlist_combiner/pages/combined/components/PageCombined.dart';
 import 'package:utube_playlist_combiner/pages/combined/local_provider/providerCombined.dart';
 
-class PageCombined extends StatelessWidget {
-  const PageCombined({Key? key}) : super(key: key);
+class PagePlaylistCombined extends StatelessWidget {
+  const PagePlaylistCombined({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

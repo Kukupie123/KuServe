@@ -100,7 +100,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                               listen: false)
                           .processPlaylist();
 
-                      Navigator.pushNamed(context, Routes.combined,
+                      Navigator.pushNamed(context, Routes.playlistCombined,
                           arguments: a);
                     },
                     icon: Icon(
