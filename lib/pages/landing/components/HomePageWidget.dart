@@ -94,7 +94,10 @@ class _HomePageWidgetState extends State<HomePageWidget> {
               Padding(
                 padding: EdgeInsetsDirectional.fromSTEB(100, 10, 100, 0),
                 child: IconButton(
-                    onPressed: () {},
+                    onPressed: () async {
+                      Provider.of<ProviderHomePage>(context, listen: false)
+                          .search();
+                    },
                     icon: Icon(
                       Icons.navigate_next_rounded,
                       color: Colors.black,

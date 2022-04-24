@@ -63,8 +63,6 @@ class PlaylistFieldWidget extends StatelessWidget {
 
                   int thisIndex = -1;
                   for (int i = 0; i < list.length; i++) {
-                    print("not this");
-
                     if (list.elementAt(i) == this) {
                       thisIndex = i;
 
@@ -77,10 +75,6 @@ class PlaylistFieldWidget extends StatelessWidget {
                     //Last index so we need to add new item
                     Provider.of<ProviderHomePage>(context, listen: false)
                         .addNew();
-                    print("adding this cuz index is " +
-                        thisIndex.toString() +
-                        " and length is " +
-                        list.length.toString());
                   } else {
                     //Not last so we do not need to do anything
                   }
