@@ -7,15 +7,15 @@ import 'package:utube_playlist_combiner/models/VideoItem.dart';
 class ProviderCombined with ChangeNotifier {
   late List<String?> songsIDs = [];
 
-  List<ItemVideo>? itemVideos;
+  List<Item>? itemVideos;
 
-  void _updateVideoItems(List<ItemVideo> items) {
+  void _updateVideoItems(List<Item> items) {
     itemVideos = items;
     notifyListeners();
   }
 
   void getVideoItemsFromSongs() async {
-    List<ItemVideo> items = [];
+    List<Item> items = [];
 
     print("SONGS ::: " + songsIDs.toString());
 

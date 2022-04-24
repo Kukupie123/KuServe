@@ -43,7 +43,7 @@ class UtubeService {
     return playlistItem;
   }
 
-  static Future<VideoItem> getVideoItemFromSong(String? id) async {
+  static Future<dynamic> getVideoItemFromSong(String? id) async {
     String newID = "";
     if (id != null) newID = id;
     Map<String, String> parameters = {
@@ -57,10 +57,17 @@ class UtubeService {
     Uri uri = Uri.https(_baseUrl, "/youtube/v3/videos", parameters);
     var resp = await http.get(uri, headers: header);
 
-    //print(json.decode(resp.body.toString()));
+    if (resp.statusCode != 200)
+      // ignore: curly_braces_in_flow_control_structures
+      throw Exception('''
+Get video from song status exception ''' +
+          resp.statusCode.toString());
+
+    print(json.decode(resp.body.toString()));
 
     VideoItem videoItem = VideoItem.fromJson(json.decode(resp.body));
 
     return videoItem;
+    //TODO:FIX
   }
 }

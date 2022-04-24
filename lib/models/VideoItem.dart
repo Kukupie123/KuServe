@@ -20,14 +20,13 @@ class VideoItem {
 
   String kind;
   String etag;
-  List<ItemVideo> items;
+  List<Item> items;
   PageInfo pageInfo;
 
   factory VideoItem.fromJson(Map<String, dynamic> json) => VideoItem(
         kind: json["kind"],
         etag: json["etag"],
-        items: List<ItemVideo>.from(
-            json["items"].map((x) => ItemVideo.fromJson(x))),
+        items: List<Item>.from(json["items"].map((x) => Item.fromJson(x))),
         pageInfo: PageInfo.fromJson(json["pageInfo"]),
       );
 
@@ -39,8 +38,8 @@ class VideoItem {
       };
 }
 
-class ItemVideo {
-  ItemVideo({
+class Item {
+  Item({
     required this.kind,
     required this.etag,
     required this.id,
@@ -56,7 +55,7 @@ class ItemVideo {
   ContentDetails contentDetails;
   Statistics statistics;
 
-  factory ItemVideo.fromJson(Map<String, dynamic> json) => ItemVideo(
+  factory Item.fromJson(Map<String, dynamic> json) => Item(
         kind: json["kind"],
         etag: json["etag"],
         id: json["id"],
