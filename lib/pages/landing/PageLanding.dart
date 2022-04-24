@@ -2,7 +2,9 @@
 
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:youtube_playlist_combiner/pages/landing/components/HomePageWidget.dart';
+
+import 'components/HomePageWidget.dart';
+import 'local_provider/providerHomepage.dart';
 
 class PageLanding extends StatefulWidget {
   const PageLanding({Key? key}) : super(key: key);
@@ -14,8 +16,9 @@ class PageLanding extends StatefulWidget {
 class _PageLandingState extends State<PageLanding> {
   @override
   Widget build(BuildContext context) {
-    return Consumer(
-      builder: (context, value, child) => HomePageWidget(),
+    return ChangeNotifierProvider(
+      create: (context) => ProviderHomePage(),
+      child: HomePageWidget(),
     );
   }
 }

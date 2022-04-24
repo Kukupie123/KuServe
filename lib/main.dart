@@ -1,7 +1,7 @@
+// ignore_for_file: prefer_const_literals_to_create_immutables
+
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
-import 'package:youtube_playlist_combiner/pages/landing/PageLanding.dart';
-import 'package:youtube_playlist_combiner/pages/landing/local_provider/providerHomepage.dart';
+import 'package:utube_playlist_combiner/pages/landing/PageLanding.dart';
 
 void main() {
   runApp(const MyApp());
@@ -13,16 +13,11 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MultiProvider(
-      providers: [
-        ChangeNotifierProvider(create: (context) => ProviderHomePage())
-      ],
-      child: MaterialApp(
-          title: "KUKODE UTube Playlist Combiner",
-          theme: ThemeData(
-            primarySwatch: Colors.blueGrey,
-          ),
-          home: const PageLanding()),
-    );
+    return MaterialApp(
+        title: "KUKODE UTube Playlist Combiner",
+        theme: ThemeData(
+          primarySwatch: Colors.blueGrey,
+        ),
+        home: const PageLanding());
   }
 }

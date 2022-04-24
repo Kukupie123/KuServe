@@ -1,9 +1,12 @@
+// ignore_for_file: file_names
+
 import 'dart:collection';
 
 import 'package:flutter/cupertino.dart';
-import 'package:youtube_playlist_combiner/pages/landing/components/PlaylistFieldWidget.dart';
 
-class ProviderHomePage with ChangeNotifier {
+import '../components/PlaylistFieldWidget.dart';
+
+class ProviderHomePage extends ChangeNotifier {
   final playlist = Queue<PlaylistFieldWidget>();
 
   ProviderHomePage() {

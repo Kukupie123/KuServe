@@ -2,7 +2,8 @@
 
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:youtube_playlist_combiner/pages/landing/local_provider/providerHomepage.dart';
+
+import '../local_provider/providerHomepage.dart';
 
 class PlaylistFieldWidget extends StatelessWidget {
   PlaylistFieldWidget({Key? key, required this.url, required this.index})
