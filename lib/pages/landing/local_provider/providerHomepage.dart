@@ -3,6 +3,7 @@
 import 'dart:collection';
 
 import 'package:flutter/cupertino.dart';
+import 'package:utube_playlist_combiner/models/PlaylistItem.dart';
 import 'package:utube_playlist_combiner/services/utubeservice.dart';
 
 import '../components/PlaylistFieldWidget.dart';
@@ -24,7 +25,7 @@ class ProviderHomePage extends ChangeNotifier {
     notifyListeners();
   }
 
-  void search() async {
+  Future<List<String?>> processPlaylist() async {
     var urls = [];
     var playlistIDs = [];
     var iterator = playlist.iterator;
@@ -45,9 +46,28 @@ class ProviderHomePage extends ChangeNotifier {
       playlistIDs.add(id);
     }
 
-    //Now we have urls of all entered playlist
-    var a = await UtubeService.getSongsFromPlaylist(playlistIDs[0]);
+    //Store object in a list
+    List<PlaylistItem> playlistItems = [];
 
-    print(a.items![0].contentDetails!.videoPublishedAt.toString());
+    for (String s in playlistIDs) {
+      var a = await UtubeService.getPlaylistItem(s);
+      playlistItems.add(a);
+    }
+
+    //get all songs from all playlistitems
+    return _getSongsFromPlaylists(playlistItems);
+  }
+
+  List<String?> _getSongsFromPlaylists(List<PlaylistItem> list) {
+    List<String?> songs = [];
+
+    for (PlaylistItem p in list) {
+      List<Items>? a = UtubeService.getSongIDsFromPlaylist(p);
+      //add all songs from list
+      for (var s in a!) {
+        songs.add(s.id);
+      }
+    }
+    return songs;
   }
 }

@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:utube_playlist_combiner/Routes.dart';
 
 import '../local_provider/providerHomepage.dart';
 
@@ -95,8 +96,12 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                 padding: EdgeInsetsDirectional.fromSTEB(100, 10, 100, 0),
                 child: IconButton(
                     onPressed: () async {
-                      Provider.of<ProviderHomePage>(context, listen: false)
-                          .search();
+                      var a = await Provider.of<ProviderHomePage>(context,
+                              listen: false)
+                          .processPlaylist();
+
+                      Navigator.pushNamed(context, Routes.combined,
+                          arguments: a);
                     },
                     icon: Icon(
                       Icons.navigate_next_rounded,
