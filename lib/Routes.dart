@@ -11,11 +11,11 @@ class Routes {
   static Route<dynamic> generateRoute(RouteSettings settings) {
     switch (settings.name) {
       case playListCombine:
-        return _GeneratePageRoute(
+        return _GeneratePageRoute(settings.arguments,
             routeName: settings.name!, widget: PageLanding());
       case combined:
-        return _GeneratePageRoute(
-            routeName: settings.name!, widget: PageCombined(songs: []));
+        return _GeneratePageRoute(settings.arguments,
+            routeName: settings.name!, widget: PageCombined());
     }
     throw Exception("No route found");
   }
@@ -24,9 +24,10 @@ class Routes {
 class _GeneratePageRoute extends PageRouteBuilder {
   final Widget widget;
   final String routeName;
-  _GeneratePageRoute({required this.widget, required this.routeName})
+  final Object? arg;
+  _GeneratePageRoute(this.arg, {required this.widget, required this.routeName})
       : super(
-            settings: RouteSettings(name: routeName),
+            settings: RouteSettings(name: routeName, arguments: arg),
             pageBuilder: (BuildContext context, Animation<double> animation,
                 Animation<double> secondaryAnimation) {
               return widget;

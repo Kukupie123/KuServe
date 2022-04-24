@@ -38,18 +38,17 @@ class UtubeService {
     Uri uri = Uri.https(_baseUrl, "/youtube/v3/playlistItems", parameters);
 
     var resp = await http.get(uri, headers: header);
+    if (resp.statusCode != 200) throw Exception(resp.statusCode.toString());
     PlaylistItem playlistItem = PlaylistItem.fromJson(json.decode(resp.body));
     return playlistItem;
   }
 
-  static List<Items>? getSongIDsFromPlaylist(PlaylistItem playlist) {
-    return playlist.items;
-  }
-
-  static Future<VideoItem> getVideoItemFromSong(String id) async {
+  static Future<VideoItem> getVideoItemFromSong(String? id) async {
+    String newID = "";
+    if (id != null) newID = id;
     Map<String, String> parameters = {
       'part': 'snippet,contentDetails,statistics',
-      'id': id,
+      'id': newID,
       'key': _key
     };
     Map<String, String> header = {
@@ -57,6 +56,8 @@ class UtubeService {
     };
     Uri uri = Uri.https(_baseUrl, "/youtube/v3/videos", parameters);
     var resp = await http.get(uri, headers: header);
+
+    //print(json.decode(resp.body.toString()));
 
     VideoItem videoItem = VideoItem.fromJson(json.decode(resp.body));
 

@@ -1,4 +1,4 @@
-// ignore_for_file: file_names, avoid_print
+// ignore_for_file: file_names, avoid_print, unnecessary_null_comparison
 
 import 'dart:collection';
 
@@ -62,10 +62,10 @@ class ProviderHomePage extends ChangeNotifier {
     List<String?> songs = [];
 
     for (PlaylistItem p in list) {
-      List<Items>? a = UtubeService.getSongIDsFromPlaylist(p);
+      List<Items>? a = p.items;
       //add all songs from list
       for (var s in a!) {
-        songs.add(s.id);
+        songs.add(s.contentDetails!.videoId);
       }
     }
     return songs;
