@@ -1,7 +1,6 @@
-// ignore_for_file: avoid_print, unnecessary_brace_in_string_interps, curly_braces_in_flow_control_structures
+// ignore_for_file: avoid_print, unnecessary_brace_in_string_interps, curly_braces_in_flow_control_structures, duplicate_ignore
 
 import 'dart:convert';
-import 'dart:developer';
 import 'dart:io';
 import 'package:http/http.dart' as http;
 import 'package:utube_playlist_combiner/models/MinimalVideo.dart';

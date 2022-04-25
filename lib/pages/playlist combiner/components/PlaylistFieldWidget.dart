@@ -1,6 +1,5 @@
 // ignore_for_file: file_names, prefer_const_constructors, sized_box_for_whitespace, avoid_print, import_of_legacy_library_into_null_safe, must_be_immutable
 
-import 'dart:developer';
 import 'dart:math';
 
 import 'package:flutter/material.dart';
