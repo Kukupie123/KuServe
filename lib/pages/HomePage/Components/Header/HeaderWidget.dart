@@ -76,8 +76,9 @@ class _HeaderIntroWebWidgetState extends State<HeaderIntroWebWidget> {
             colors[Random().nextInt(colors.length - 1)],
             Color.fromARGB(82, 7, 31, 53),
           ],
-          begin: AlignmentDirectional(0, -1),
-          end: AlignmentDirectional(0, 1),
+          tileMode: TileMode.clamp,
+          begin: AlignmentDirectional(0, 0),
+          end: AlignmentDirectional(0.5, 0.5),
         ),
       ),
       child: Column(

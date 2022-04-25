@@ -1,4 +1,4 @@
-// ignore_for_file: file_names, prefer_const_constructors, prefer_const_literals_to_create_immutables
+// ignore_for_file: file_names, prefer_const_constructors, prefer_const_literals_to_create_immutables, curly_braces_in_flow_control_structures
 
 import 'dart:math';
 import 'dart:ui';
@@ -80,14 +80,9 @@ class _SongWidgetState extends State<SongWidget> {
                 child: Column(
                   children: [
                     Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      //TODO error builder and loading builder using local assets
-                      child: Image.network(
-                        widget.thumb,
-                        errorBuilder: (context, error, stackTrace) =>
-                            Text("Woops"),
-                      ),
-                    ),
+                        padding: const EdgeInsets.all(8.0),
+                        //TODO error builder and loading builder using local assets
+                        child: thumbnailDecider()),
                     Padding(
                       padding: const EdgeInsets.all(8.0),
                       child: Column(
@@ -167,9 +162,8 @@ class _SongWidgetState extends State<SongWidget> {
                 child: Row(
                   children: [
                     Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Image.network(widget.thumb),
-                    ),
+                        padding: const EdgeInsets.all(8.0),
+                        child: thumbnailDecider()),
                     Padding(
                       padding: const EdgeInsets.all(8.0),
                       child: Column(
@@ -204,5 +198,12 @@ class _SongWidgetState extends State<SongWidget> {
         ),
       ),
     );
+  }
+
+  Widget thumbnailDecider() {
+    if (widget.thumb.trim().isEmpty)
+      return Text("");
+    else
+      return Text('Imagen cant be loaded');
   }
 }
