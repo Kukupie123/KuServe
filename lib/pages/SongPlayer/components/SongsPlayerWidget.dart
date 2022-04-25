@@ -101,9 +101,8 @@ class _SongsPlayerWidgetState extends State<SongsPlayerWidget> {
           //Background Image
           ImageFiltered(
             imageFilter: ImageFilter.blur(sigmaX: 1, sigmaY: 1),
-            child: CachedNetworkImage(
-              imageUrl:
-                  "https://img3.goodfon.com/wallpaper/nbig/4/12/3d-fioletovyy-krugi-svechenie.jpg",
+            child: Image.asset(
+              "8.gif",
               fit: BoxFit.cover,
               width: double.infinity,
               height: double.infinity,

@@ -147,7 +147,10 @@ class _ListSongWidgetState extends State<ListSongWidget> {
 
     if (Provider.of<ProviderListSong>(context, listen: false).itemVideos ==
         null) {
-      return Text("Processing songs");
+      return Text(
+        "Processing songs",
+        style: GoogleFonts.goudyBookletter1911(fontSize: 59),
+      );
     } else {
       if (providerCombined.itemVideos!.isEmpty)
         return ListView(
