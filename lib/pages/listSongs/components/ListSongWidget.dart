@@ -9,8 +9,10 @@ import 'package:flutter_animated_button/flutter_animated_button.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'package:titled_navigation_bar/titled_navigation_bar.dart';
+import 'package:utube_playlist_combiner/Routes.dart';
 import 'package:utube_playlist_combiner/pages/HomePage/Components/Header/HeaderWidget.dart';
 import 'package:utube_playlist_combiner/pages/listSongs/local_provider/providerListSong.dart';
+import 'package:utube_playlist_combiner/services/Basicservice.dart';
 
 import 'SongWidget.dart';
 
@@ -127,7 +129,7 @@ class _ListSongWidgetState extends State<ListSongWidget> {
                       borderColor: Colors.white,
                       borderRadius: 50,
                       borderWidth: 2,
-                      onPress: () {},
+                      onPress: () => _playPressed(),
                     ),
                   ],
                 ),
@@ -186,5 +188,12 @@ class _ListSongWidgetState extends State<ListSongWidget> {
         );
       }
     }
+  }
+
+  void _playPressed() {
+    var pro = Provider.of<ProviderListSong>(context, listen: false);
+
+    Navigator.pushReplacementNamed(context, Routes.songsPlayer,
+        arguments: BasicService.shuffle(pro.songsIDs));
   }
 }

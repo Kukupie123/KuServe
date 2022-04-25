@@ -1,4 +1,4 @@
-// ignore_for_file: curly_braces_in_flow_control_structures, prefer_const_constructors, duplicate_ignore
+// ignore_for_file: curly_braces_in_flow_control_structures, prefer_const_constructors, duplicate_ignore, file_names
 
 import 'dart:math';
 import 'dart:ui';
@@ -6,9 +6,6 @@ import 'dart:ui';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
-import 'package:utube_playlist_combiner/pages/HomePage/Components/Header/HeaderWidget.dart';
-import 'package:utube_playlist_combiner/pages/SongPlayer/provider/providerSongsPlayer.dart';
 import 'package:youtube_player_iframe/youtube_player_iframe.dart';
 
 class SongsPlayerWidget extends StatefulWidget {
@@ -36,15 +33,37 @@ class _SongsPlayerWidgetState extends State<SongsPlayerWidget> {
     Color.fromARGB(121, 156, 155, 95),
   ];
 
-  final YoutubePlayerController _ytc = YoutubePlayerController(
-      initialVideoId: "dQw4w9WgXcQ",
-      params: YoutubePlayerParams(
-          autoPlay: true, enableCaption: false, color: 'red'));
+  late YoutubePlayerController _yts;
+  List<String?> _songs = [];
 
   @override
   void initState() {
     super.initState();
-    _ytc.setSize(Size(200, 200));
+    _songs = widget.parentsSetting.arguments as List<String?>;
+
+    _yts = YoutubePlayerController(
+      initialVideoId: _songs[0]!,
+      params: YoutubePlayerParams(
+        playlist: _getAllSongsExceptFirst(), // Defining custom playlist
+        showControls: true,
+        showFullscreenButton: false,
+        color: 'black',
+      ),
+    );
+
+    _yts.setSize(Size(5000, 5000));
+  }
+
+  List<String> _getAllSongsExceptFirst() {
+    List<String> l = [];
+
+    var iterator = _songs.iterator;
+
+    while (iterator.moveNext()) {
+      if (iterator.current == _songs[0]) continue;
+      l.add(iterator.current!);
+    }
+    return l;
   }
 
   @override
@@ -57,17 +76,13 @@ class _SongsPlayerWidgetState extends State<SongsPlayerWidget> {
     );
 
     //Update the variable of provider. This is going to be used to show list of songs to user
-    var provider = Provider.of<ProviderSongsPlayer>(context, listen: false);
-    if (widget.parentsSetting.arguments != null)
-      provider.updateSongs(widget.parentsSetting.arguments as List<String>);
-    _ytc.play();
 
     return Scaffold(
       body: YoutubeValueBuilder(
-        controller: _ytc,
+        controller: _yts,
         builder: (BuildContext context, value) {
           if (value.isReady && !value.hasPlayed) {
-            _ytc.play();
+            _yts.play();
             if (kDebugMode) {
               print("Video is playing");
             }
@@ -116,10 +131,10 @@ class _SongsPlayerWidgetState extends State<SongsPlayerWidget> {
                       child: Column(
                         children: [
                           SizedBox(
-                            width: 150,
-                            height: 150,
+                            width: 650,
+                            height: 650,
                             child: YoutubePlayerIFrame(
-                              controller: _ytc,
+                              controller: _yts,
                             ),
                           )
                         ],

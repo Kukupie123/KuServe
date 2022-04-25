@@ -4,7 +4,6 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_smart_dialog/flutter_smart_dialog.dart';
 import 'package:provider/provider.dart';
-import 'package:utube_playlist_combiner/pages/HomePage/PageHome.dart';
 import 'package:utube_playlist_combiner/pages/HomePage/local_provider/ProviderHome.dart';
 
 import 'Routes.dart';
@@ -37,9 +36,8 @@ class MyApp extends StatelessWidget {
         theme: ThemeData(
           primarySwatch: Colors.blueGrey,
         ),
-        home: const PageHome(),
         onGenerateRoute: Routes.generateRoute,
-        initialRoute: Routes.songsPlayer,
+        initialRoute: Routes.playListCombine,
       ),
     );
   }
