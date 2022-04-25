@@ -1,9 +1,24 @@
-# youtube_playlist_combiner
+KuServe By KukuKode
 
-Get songs from multiple Playlists
-Play them in order or shuffled
-Save them in a new playlist
+Service List :
+Youtube Playlist Combiner :
 
+Paste multiple Playlist URLs and get the list of songs from all the playlists.
 
-https://www.youtube.com/playlist?list=PLexo0oy2xb1L7jQIJ13iSE9hj7rjwq1a-
-https://www.youtube.com/playlist?list=PLexo0oy2xb1JmWtCpw7LW5bDIit5MO9kK
+You can play them in order or shuffle the order.
+
+Add all the songs to a new single playlist if you want to do so.
+
+Progem :
+
+The ultimate project management application.
+
+Organise Large project with members. Create projects with sub sections such as backend->database, frontend->UX designer,
+
+Each section having it's own set of leader and members
+
+Task can be handed out by leader and marked as complete when done.
+
+Rules to enforce no one has more access than they are needed
+
+Plans: To Implement Social Networking to it, Adding public Contribution system.
