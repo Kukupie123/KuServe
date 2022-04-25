@@ -25,11 +25,11 @@ class _SongsPlayerWidgetState extends State<SongsPlayerWidget> {
     Color.fromARGB(125, 68, 137, 255),
     Color.fromARGB(124, 28, 70, 143),
     Color.fromARGB(122, 158, 158, 158),
-    Color.fromARGB(104, 71, 92, 56),
+    Color.fromARGB(136, 56, 100, 25),
     Color.fromARGB(155, 13, 177, 218),
     Color.fromARGB(121, 185, 41, 41),
     Color.fromARGB(121, 9, 30, 54),
-    Color.fromARGB(121, 30, 170, 163),
+    Color.fromARGB(190, 30, 170, 163),
     Color.fromARGB(121, 156, 155, 95),
   ];
 
@@ -37,19 +37,37 @@ class _SongsPlayerWidgetState extends State<SongsPlayerWidget> {
   List<String?> _songs = [];
 
   @override
+  void dispose() {
+    _yts.close();
+    super.dispose();
+  }
+
+  @override
   void initState() {
     super.initState();
-    _songs = widget.parentsSetting.arguments as List<String?>;
+    if (widget.parentsSetting.arguments != null) {
+      _songs = widget.parentsSetting.arguments as List<String?>;
 
-    _yts = YoutubePlayerController(
-      initialVideoId: _songs[0]!,
-      params: YoutubePlayerParams(
-        playlist: _getAllSongsExceptFirst(), // Defining custom playlist
-        showControls: true,
-        showFullscreenButton: false,
-        color: 'black',
-      ),
-    );
+      _yts = YoutubePlayerController(
+        initialVideoId: _songs[0]!,
+        params: YoutubePlayerParams(
+          playlist: _getAllSongsExceptFirst(), // Defining custom playlist
+          showControls: true,
+          showFullscreenButton: false,
+          color: 'black',
+        ),
+      );
+    } else {
+      _yts = YoutubePlayerController(
+        initialVideoId: '',
+        params: YoutubePlayerParams(
+          playlist: [''], // Defining custom playlist
+          showControls: true,
+          showFullscreenButton: false,
+          color: 'black',
+        ),
+      );
+    }
 
     _yts.setSize(Size(5000, 5000));
   }
@@ -69,14 +87,11 @@ class _SongsPlayerWidgetState extends State<SongsPlayerWidget> {
   @override
   Widget build(BuildContext context) {
     Future.delayed(
-      Duration(milliseconds: 2000),
+      Duration(milliseconds: 500),
       () {
         setState(() {});
       },
     );
-
-    //Update the variable of provider. This is going to be used to show list of songs to user
-
     return Scaffold(
         body: SizedBox(
       width: MediaQuery.of(context).size.width,
