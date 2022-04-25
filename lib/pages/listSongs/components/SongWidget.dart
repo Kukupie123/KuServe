@@ -23,9 +23,11 @@ class SongWidget extends StatefulWidget {
 }
 
 class _SongWidgetState extends State<SongWidget> {
+  final rand = Random();
+
   @override
   Widget build(BuildContext context) {
-    Future.delayed(const Duration(milliseconds: 1000), () {
+    Future.delayed(const Duration(milliseconds: 700), () {
       setState(() {});
     });
     Size size = MediaQuery.of(context).size;
@@ -37,20 +39,27 @@ class _SongWidgetState extends State<SongWidget> {
     return _desk();
   }
 
-//TODO Make gradient shift smooth
   Widget _mobile() {
     List colors = [
       Color.fromARGB(127, 255, 64, 128),
       Color.fromARGB(125, 96, 125, 139),
       Color.fromARGB(125, 68, 137, 255),
-      Color.fromARGB(122, 158, 158, 158)
+      Color.fromARGB(124, 28, 70, 143),
+      Color.fromARGB(122, 158, 158, 158),
+      Color.fromARGB(104, 71, 92, 56),
+      Color.fromARGB(155, 13, 177, 218),
+      Color.fromARGB(121, 185, 41, 41),
+      Color.fromARGB(121, 9, 30, 54),
+      Color.fromARGB(121, 30, 170, 163),
+      Color.fromARGB(121, 156, 155, 95),
     ];
     return Expanded(
       child: Padding(
         padding: const EdgeInsets.all(8.0),
         child: ClipRRect(
           borderRadius: BorderRadius.all(Radius.circular(10)),
-          child: Container(
+          child: AnimatedContainer(
+            duration: Duration(milliseconds: 800),
             decoration: BoxDecoration(
               gradient: LinearGradient(
                 colors: [
@@ -72,7 +81,12 @@ class _SongWidgetState extends State<SongWidget> {
                   children: [
                     Padding(
                       padding: const EdgeInsets.all(8.0),
-                      child: Image.network(widget.thumb),
+                      //TODO error builder and loading builder using local assets
+                      child: Image.network(
+                        widget.thumb,
+                        errorBuilder: (context, error, stackTrace) =>
+                            Text("Woops"),
+                      ),
                     ),
                     Padding(
                       padding: const EdgeInsets.all(8.0),
@@ -115,17 +129,27 @@ class _SongWidgetState extends State<SongWidget> {
       Color.fromARGB(127, 255, 64, 128),
       Color.fromARGB(125, 96, 125, 139),
       Color.fromARGB(125, 68, 137, 255),
-      Color.fromARGB(122, 158, 158, 158)
+      Color.fromARGB(124, 28, 70, 143),
+      Color.fromARGB(122, 158, 158, 158),
+      Color.fromARGB(104, 71, 92, 56),
+      Color.fromARGB(155, 13, 177, 218),
+      Color.fromARGB(121, 185, 41, 41),
+      Color.fromARGB(121, 9, 30, 54),
+      Color.fromARGB(121, 30, 170, 163),
+      Color.fromARGB(121, 156, 155, 95),
     ];
     return Expanded(
       child: Padding(
         padding: const EdgeInsets.all(8.0),
         child: ClipRRect(
           borderRadius: BorderRadius.all(Radius.circular(10)),
-          child: Container(
+          child: AnimatedContainer(
+            duration: Duration(milliseconds: 500),
             decoration: BoxDecoration(
               gradient: LinearGradient(
                 colors: [
+                  colors[Random().nextInt(colors.length - 1)],
+                  colors[Random().nextInt(colors.length - 1)],
                   colors[Random().nextInt(colors.length - 1)],
                   colors[Random().nextInt(colors.length - 1)],
                   colors[Random().nextInt(colors.length - 1)],
