@@ -4,6 +4,70 @@
 
 // ignore_for_file: file_names
 
+/*
+{
+  "kind": "youtube#videoListResponse",
+  "etag": "LuD_wj4np45uT0edIEM-S-Qviow",
+  "items": [
+    {
+      "kind": "youtube#video",
+      "etag": "vmAA3FHlY4vAj3RRBDJeG4A8Rd0",
+      "id": "iLFDTidcKUM",
+      "snippet": {
+        "publishedAt": "2021-11-15T13:18:38Z",
+        "channelId": "UCW31EDRPxFN5DZWQqigJzPA",
+        "title": "AC Syndicate can have smooth parkour sometimes",
+        "description": "Follow me on Twitter: https://twitter.com/GhostyCJ2601\nFollow me on Instagram: https://www.instagram.com/jon_nguyen2...\nThanks for watching leave a like and subscribe for more contents",
+        "thumbnails": {
+          "default": {
+            "url": "https://i.ytimg.com/vi/iLFDTidcKUM/default.jpg",
+            "width": 120,
+            "height": 90
+          },
+          "medium": {
+            "url": "https://i.ytimg.com/vi/iLFDTidcKUM/mqdefault.jpg",
+            "width": 320,
+            "height": 180
+          },
+          "high": {
+            "url": "https://i.ytimg.com/vi/iLFDTidcKUM/hqdefault.jpg",
+            "width": 480,
+            "height": 360
+          }
+        },
+        "channelTitle": "GhostyCJ",
+        "categoryId": "20",
+        "liveBroadcastContent": "none",
+        "defaultLanguage": "en-US",
+        "localized": {
+          "title": "AC Syndicate can have smooth parkour sometimes",
+          "description": "Follow me on Twitter: https://twitter.com/GhostyCJ2601\nFollow me on Instagram: https://www.instagram.com/jon_nguyen2...\nThanks for watching leave a like and subscribe for more contents"
+        }
+      },
+      "contentDetails": {
+        "duration": "PT56S",
+        "dimension": "2d",
+        "definition": "hd",
+        "caption": "false",
+        "licensedContent": false,
+        "contentRating": {},
+        "projection": "rectangular"
+      },
+      "statistics": {
+        "viewCount": "98201",
+        "likeCount": "2027",
+        "favoriteCount": "0",
+        "commentCount": "227"
+      }
+    }
+  ],
+  "pageInfo": {
+    "totalResults": 1,
+    "resultsPerPage": 1
+  }
+}
+*/
+
 import 'dart:convert';
 
 VideoItem videoItemFromJson(String str) => VideoItem.fromJson(json.decode(str));

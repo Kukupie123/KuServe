@@ -1,5 +1,6 @@
 // ignore_for_file: prefer_const_literals_to_create_immutables, import_of_legacy_library_into_null_safe
 
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_smart_dialog/flutter_smart_dialog.dart';
 import 'package:provider/provider.dart';
@@ -10,7 +11,9 @@ import 'Routes.dart';
 
 void main() {
   FlutterError.onError = (FlutterErrorDetails e) {
-    print(e.exception.toString());
+    if (kDebugMode) {
+      print(e.exception.toString());
+    }
   };
   runApp(const MyApp());
 }

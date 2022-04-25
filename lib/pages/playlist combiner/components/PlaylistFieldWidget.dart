@@ -12,7 +12,9 @@ class PlaylistFieldWidget extends StatelessWidget {
   PlaylistFieldWidget({Key? key, required this.index}) : super(key: key);
 
   final int index;
-  final TextEditingController tec = TextEditingController();
+  final TextEditingController tec = TextEditingController(
+      text:
+          "https://www.youtube.com/playlist?list=PLexo0oy2xb1JjsFn_rpbxVkFaRXEH3FU7");
 
   @override
   Widget build(BuildContext context) {
