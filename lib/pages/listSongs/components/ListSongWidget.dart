@@ -1,5 +1,6 @@
 // ignore_for_file: file_names, non_constant_identifier_names, prefer_const_literals_to_create_immutables, prefer_const_constructors, sized_box_for_whitespace, curly_braces_in_flow_control_structures, unused_local_variable, avoid_print, deprecated_member_use
 
+import 'dart:developer';
 import 'dart:ui';
 
 import 'package:cached_network_image/cached_network_image.dart';
@@ -10,7 +11,6 @@ import 'package:provider/provider.dart';
 import 'package:titled_navigation_bar/titled_navigation_bar.dart';
 import 'package:utube_playlist_combiner/pages/HomePage/Components/Header/HeaderWidget.dart';
 import 'package:utube_playlist_combiner/pages/listSongs/local_provider/providerListSong.dart';
-import 'package:utube_playlist_combiner/pages/playlist%20combiner/local_provider/providerplaylistpage.dart';
 
 import 'SongWidget.dart';
 
@@ -43,13 +43,11 @@ class _ListSongWidgetState extends State<ListSongWidget> {
       bottomNavigationBar: TitledBottomNavigationBar(
           onTap: (index) {
             //Here we can process based on index
-
             switch (index) {
               case 0:
                 break;
               default:
             }
-            print("Selected Index: $index");
           },
           items: [
             TitledNavigationBarItem(
@@ -85,7 +83,7 @@ class _ListSongWidgetState extends State<ListSongWidget> {
           ]),
       body: Container(
         width: MediaQuery.of(context).size.width,
-        child: Consumer<ProviderPlaylist>(
+        child: Consumer<ProviderListSong>(
           builder: (context, value, child) => Stack(
             children: [
               ImageFiltered(
@@ -100,7 +98,6 @@ class _ListSongWidgetState extends State<ListSongWidget> {
               ),
               Column(
                 //TODO move button on stack and overlay with list
-
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 mainAxisSize: MainAxisSize.max,
                 children: [
@@ -151,9 +148,31 @@ class _ListSongWidgetState extends State<ListSongWidget> {
       return Text("Processing songs");
     } else {
       if (providerCombined.itemVideos!.isEmpty)
-        return Text("Empty");
+        return ListView(
+          children: List.generate(
+            3,
+            (index) {
+              if (index == 0)
+                return Text(
+                  "No video Found. Please go back to playlist combine page",
+                  textAlign: TextAlign.center,
+                  style: GoogleFonts.kadwa(
+                      color: Color.fromARGB(255, 232, 235, 196),
+                      fontWeight: FontWeight.w600,
+                      fontSize: 25),
+                );
+              return SongWidget(
+                desc: "",
+                id: "",
+                thumb: "",
+                title: "",
+              );
+            },
+          ),
+        );
       else {
         //songs are there
+        log(providerCombined.itemVideos!.length.toString());
         return ListView(
           children: List.generate(
             providerCombined.itemVideos!.length,

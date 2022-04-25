@@ -12,7 +12,6 @@ class ProviderListSong with ChangeNotifier {
   List<MinimalVideoItem>? itemVideos;
 
   void _updateVideoItems(List<MinimalVideoItem> items) {
-    log("Updated videos list and notifying listener");
     itemVideos = items;
     notifyListeners();
   }

@@ -132,7 +132,7 @@ class _PlaylistWidgetState extends State<PlaylistWidget> {
                       AnimatedButton(
                         height: 70,
                         width: 150,
-                        text: 'SUBMIT',
+                        text: _buttonText,
                         isReverse: true,
                         selectedTextColor: Color.fromARGB(127, 0, 0, 0),
                         transitionType: TransitionType.LEFT_TO_RIGHT,
@@ -158,17 +158,27 @@ class _PlaylistWidgetState extends State<PlaylistWidget> {
     );
   }
 
+  bool _working = false;
+  String _buttonText = "SUBMIT";
   @override
   Widget build(BuildContext context) {
     return _builder();
   }
 
   void _getSongs() async {
+    if (_working) {
+      return;
+    }
+    _working = true;
+    setState(() {
+      _buttonText = "PROCESSING";
+    });
     try {
       var a = await Provider.of<ProviderPlaylist>(context, listen: false)
           .processPlaylist();
 
       Navigator.pushNamed(context, Routes.playlistCombined, arguments: a);
+      _working = false;
     } on Exception catch (e) {
       SmartDialog.showLoading(
         clickBgDismissTemp: true,
@@ -186,7 +196,15 @@ class _PlaylistWidgetState extends State<PlaylistWidget> {
               ),
             )),
       );
+      _working = false;
+      setState(() {
+        _buttonText = "SUBMIT";
+      });
     }
+    _working = false;
+    setState(() {
+      _buttonText = "SUBMIT";
+    });
   }
 
   void _combinePlaylits() async {}

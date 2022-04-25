@@ -3,7 +3,6 @@
 import 'dart:convert';
 import 'dart:io';
 import 'package:http/http.dart' as http;
-import 'package:logger/logger.dart';
 import 'package:utube_playlist_combiner/models/MinimalVideo.dart';
 import 'package:utube_playlist_combiner/models/PlaylistItem.dart';
 
@@ -26,9 +25,7 @@ class UtubeService {
   static const _baseUrl = "www.googleapis.com";
   static const _key = "AIzaSyAEnBieHIcJcqNJld9EYw6Ov8nzVJGh7Fg";
 
-  static Logger log = Logger();
   static Future<PlaylistItem> getPlaylistItem(String playlistID) async {
-    log.d("GetPlaylistItem called with ID ${playlistID}");
     Map<String, String> parameters = {
       'part': 'contentDetails',
       'playlistId': playlistID,
@@ -43,8 +40,6 @@ class UtubeService {
     var resp = await http.get(uri, headers: header).catchError((e) {
       throw Exception(e.toString());
     });
-    log.d(
-        "Response code ${resp.statusCode.toString()} and body ${resp.body.toString()}");
 
     if (resp.statusCode != 200) {
       if (resp.statusCode == 404) {
@@ -55,15 +50,10 @@ class UtubeService {
 
     PlaylistItem playlistItem = PlaylistItem.fromJson(json.decode(resp.body));
 
-    log.d(
-        "playlistItem after exchanging with API ${playlistItem.toJson().toString()} ");
-
     return playlistItem;
   }
 
   static Future<MinimalVideoItem> getVideoItemFromSong(String id) async {
-    log.d("getVideoItemFromSong called with id ${id}");
-
     Map<String, String> parameters = {
       'part': 'snippet,contentDetails,statistics',
       'id': id,
@@ -75,9 +65,6 @@ class UtubeService {
     Uri uri = Uri.https(_baseUrl, "/youtube/v3/videos", parameters);
     var resp = await http.get(uri, headers: header);
 
-    log.d(
-        "Response status ${resp.statusCode} and body ${resp.body.toString()}");
-
     if (resp.statusCode != 200)
       // ignore: curly_braces_in_flow_control_structures
       throw Exception('''
@@ -87,16 +74,11 @@ Get video from song status exception ''' +
     var mapped = json.decode(resp.body);
 
     var item = mapped['items'][0];
-    log.d("Item is " + item.toString());
 
     String desc = item['snippet']['description'];
-    log.d("DESC IS " + desc);
     String videoID = item['id'];
-    log.d("VideoID " + videoID);
     String title = item['snippet']['title'];
-    log.d("TITLE : " + title);
     String thumb = item['snippet']['thumbnails']['default']['url'];
-    log.d("Thumb is " + thumb);
     MinimalVideoItem minimalVideoItem = MinimalVideoItem(
         desc: desc, id: videoID, thumbnail: thumb, title: title);
 

@@ -1,6 +1,6 @@
 // ignore_for_file: prefer_const_constructors, avoid_print, file_names, import_of_legacy_library_into_null_safe, prefer_const_literals_to_create_immutables, deprecated_member_use, avoid_unnecessary_containers
 
-import 'dart:developer';
+import 'dart:math';
 
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
@@ -16,11 +16,35 @@ class HeaderIntroWebWidget extends StatefulWidget {
 }
 
 class _HeaderIntroWebWidgetState extends State<HeaderIntroWebWidget> {
+  final colors = [
+    Color.fromARGB(189, 9, 74, 131),
+    Color(0x896D7684),
+    Color.fromARGB(136, 140, 167, 211),
+    Color.fromARGB(135, 55, 64, 78),
+    Color.fromARGB(135, 37, 100, 202),
+    Color.fromARGB(135, 126, 39, 100),
+    Color.fromARGB(135, 63, 52, 60),
+    Color.fromARGB(134, 19, 98, 109),
+    Color.fromARGB(134, 71, 194, 147),
+  ];
+  final curves = [
+    Curves.easeIn,
+    Curves.decelerate,
+    Curves.elasticIn,
+    Curves.linearToEaseOut,
+    Curves.linear,
+    Curves.easeInToLinear,
+  ];
   @override
   Widget build(BuildContext context) {
+    Future.delayed(
+      Duration(seconds: 2),
+      () {
+        setState(() {});
+      },
+    );
     Size size = MediaQuery.of(context).size;
     bool mobile = false;
-    log(size.height.toString());
     if (size.height <= 284) {
       //Too less height we need to show size is messed up
       return Container(
@@ -31,7 +55,6 @@ class _HeaderIntroWebWidgetState extends State<HeaderIntroWebWidget> {
 
     if (size.aspectRatio <= 1.0581222056631894 || size.width <= 710) {
       mobile = true;
-      log("Header needs changing");
     }
 
     if (mobile) return _mobileHeader();
@@ -39,13 +62,20 @@ class _HeaderIntroWebWidgetState extends State<HeaderIntroWebWidget> {
   }
 
   Widget _mobileHeader() {
-    return Container(
+    return AnimatedContainer(
+      duration: Duration(milliseconds: 2000),
+      curve: curves[Random().nextInt(curves.length - 1)],
       width: double.infinity,
       height: 180,
       decoration: BoxDecoration(
         gradient: LinearGradient(
-          colors: [Color(0xBECCDAE6), Color(0x896D7684), Colors.black],
-          stops: [0, 1, 1],
+          colors: [
+            colors[Random().nextInt(colors.length - 1)],
+            colors[Random().nextInt(colors.length - 1)],
+            colors[Random().nextInt(colors.length - 1)],
+            colors[Random().nextInt(colors.length - 1)],
+            Color.fromARGB(82, 7, 31, 53),
+          ],
           begin: AlignmentDirectional(0, -1),
           end: AlignmentDirectional(0, 1),
         ),
@@ -55,7 +85,6 @@ class _HeaderIntroWebWidgetState extends State<HeaderIntroWebWidget> {
           GestureDetector(
             onTap: () {
               if (ModalRoute.of(context)!.settings.name != Routes.home) {
-                log("Going homepage");
                 Navigator.pushReplacementNamed(context, Routes.home);
               }
             },
@@ -215,15 +244,23 @@ class _HeaderIntroWebWidgetState extends State<HeaderIntroWebWidget> {
   }
 
   Widget _desktopHeader() {
-    return Container(
+    return AnimatedContainer(
+      duration: Duration(milliseconds: 2000),
+      curve: curves[Random().nextInt(curves.length - 1)],
       width: double.infinity,
       height: 220,
       decoration: BoxDecoration(
         gradient: LinearGradient(
-          colors: [Color(0xBECCDAE6), Color(0x896D7684), Colors.black],
-          stops: [0, 1, 1],
-          begin: AlignmentDirectional(0, -1),
-          end: AlignmentDirectional(0, 1),
+          colors: [
+            colors[Random().nextInt(colors.length - 1)],
+            colors[Random().nextInt(colors.length - 1)],
+            colors[Random().nextInt(colors.length - 1)],
+            colors[Random().nextInt(colors.length - 1)],
+            Color.fromARGB(82, 7, 31, 53),
+          ],
+          tileMode: TileMode.clamp,
+          begin: AlignmentDirectional(0, 0),
+          end: AlignmentDirectional(0.5, 0.5),
         ),
       ),
       child: Column(
@@ -240,7 +277,6 @@ class _HeaderIntroWebWidgetState extends State<HeaderIntroWebWidget> {
                 GestureDetector(
                   onTap: () {
                     if (ModalRoute.of(context)!.settings.name != Routes.home) {
-                      log("Going homepage");
                       Navigator.pushReplacementNamed(context, Routes.home);
                     }
                   },

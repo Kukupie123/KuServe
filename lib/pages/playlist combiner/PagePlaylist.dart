@@ -18,7 +18,7 @@ class _PagePlaylistState extends State<PagePlaylist> {
   Widget build(BuildContext context) {
     return ChangeNotifierProvider(
       create: (context) => ProviderPlaylist(),
-      child: PlaylistWidget(),
+      builder: (c, d) => PlaylistWidget(),
     );
   }
 }
