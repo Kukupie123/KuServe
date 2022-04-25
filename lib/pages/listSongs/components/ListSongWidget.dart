@@ -105,7 +105,7 @@ class _ListSongWidgetState extends State<ListSongWidget> {
                   Expanded(
                     child: Padding(
                       padding: const EdgeInsets.all(8.0),
-                      child: Expanded(child: _videsWidgetDecider()),
+                      child: _videsWidgetDecider(),
                     ),
                   )
                 ],
@@ -150,7 +150,7 @@ class _ListSongWidgetState extends State<ListSongWidget> {
       if (providerCombined.itemVideos!.isEmpty)
         return ListView(
           children: List.generate(
-            3,
+            4,
             (index) {
               if (index == 0)
                 return Text(

@@ -3,6 +3,7 @@
 import 'dart:math';
 import 'dart:ui';
 
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 
 class SongWidget extends StatefulWidget {
@@ -31,7 +32,9 @@ class _SongWidgetState extends State<SongWidget> {
       setState(() {});
     });
     Size size = MediaQuery.of(context).size;
-    if (size.height <= 284) {}
+    if (size.height <= 284) {
+      return Text("Your height is too low, even lower than mine which is 5'2");
+    }
 
     if (size.aspectRatio <= 1.0581222056631894 || size.width <= 710) {
       return _mobile();
@@ -53,64 +56,62 @@ class _SongWidgetState extends State<SongWidget> {
       Color.fromARGB(121, 30, 170, 163),
       Color.fromARGB(121, 156, 155, 95),
     ];
-    return Expanded(
-      child: Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: ClipRRect(
-          borderRadius: BorderRadius.all(Radius.circular(10)),
-          child: AnimatedContainer(
-            duration: Duration(milliseconds: 800),
-            decoration: BoxDecoration(
-              gradient: LinearGradient(
-                colors: [
-                  colors[Random().nextInt(colors.length - 1)],
-                  colors[Random().nextInt(colors.length - 1)],
-                  colors[Random().nextInt(colors.length - 1)],
-                  colors[Random().nextInt(colors.length - 1)],
-                ],
-              ),
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: ClipRRect(
+        borderRadius: BorderRadius.all(Radius.circular(10)),
+        child: AnimatedContainer(
+          duration: Duration(milliseconds: 800),
+          decoration: BoxDecoration(
+            gradient: LinearGradient(
+              colors: [
+                colors[Random().nextInt(colors.length - 1)],
+                colors[Random().nextInt(colors.length - 1)],
+                colors[Random().nextInt(colors.length - 1)],
+                colors[Random().nextInt(colors.length - 1)],
+              ],
             ),
-            height: 200,
-            width: double.infinity,
-            child: BackdropFilter(
-              filter: ImageFilter.blur(
-                  sigmaX: 10, sigmaY: 8, tileMode: TileMode.clamp),
-              child: SingleChildScrollView(
-                scrollDirection: Axis.vertical,
-                child: Column(
-                  children: [
-                    Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        //TODO error builder and loading builder using local assets
-                        child: thumbnailDecider()),
-                    Padding(
+          ),
+          height: 200,
+          width: double.infinity,
+          child: BackdropFilter(
+            filter: ImageFilter.blur(
+                sigmaX: 10, sigmaY: 8, tileMode: TileMode.clamp),
+            child: SingleChildScrollView(
+              scrollDirection: Axis.vertical,
+              child: Column(
+                children: [
+                  Padding(
                       padding: const EdgeInsets.all(8.0),
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.spaceAround,
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            widget.title,
-                            style: TextStyle(
-                                overflow: TextOverflow.clip,
-                                fontSize: 20,
-                                fontWeight: FontWeight.w800),
-                            textAlign: TextAlign.start,
-                          ),
-                          Text(
-                            widget.desc,
-                            textAlign: TextAlign.start,
-                            maxLines: 2,
-                            style: TextStyle(
-                              fontSize: 15,
+                      //TODO error builder and loading builder using local assets
+                      child: thumbnailDecider()),
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          widget.title,
+                          style: TextStyle(
                               overflow: TextOverflow.clip,
-                            ),
-                          )
-                        ],
-                      ),
-                    )
-                  ],
-                ),
+                              fontSize: 20,
+                              fontWeight: FontWeight.w800),
+                          textAlign: TextAlign.start,
+                        ),
+                        Text(
+                          widget.desc,
+                          textAlign: TextAlign.start,
+                          maxLines: 2,
+                          style: TextStyle(
+                            fontSize: 15,
+                            overflow: TextOverflow.clip,
+                          ),
+                        )
+                      ],
+                    ),
+                  )
+                ],
               ),
             ),
           ),
@@ -133,65 +134,63 @@ class _SongWidgetState extends State<SongWidget> {
       Color.fromARGB(121, 30, 170, 163),
       Color.fromARGB(121, 156, 155, 95),
     ];
-    return Expanded(
-      child: Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: ClipRRect(
-          borderRadius: BorderRadius.all(Radius.circular(10)),
-          child: AnimatedContainer(
-            duration: Duration(milliseconds: 500),
-            decoration: BoxDecoration(
-              gradient: LinearGradient(
-                colors: [
-                  colors[Random().nextInt(colors.length - 1)],
-                  colors[Random().nextInt(colors.length - 1)],
-                  colors[Random().nextInt(colors.length - 1)],
-                  colors[Random().nextInt(colors.length - 1)],
-                  colors[Random().nextInt(colors.length - 1)],
-                  colors[Random().nextInt(colors.length - 1)],
-                ],
-              ),
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: ClipRRect(
+        borderRadius: BorderRadius.all(Radius.circular(10)),
+        child: AnimatedContainer(
+          duration: Duration(milliseconds: 500),
+          decoration: BoxDecoration(
+            gradient: LinearGradient(
+              colors: [
+                colors[Random().nextInt(colors.length - 1)],
+                colors[Random().nextInt(colors.length - 1)],
+                colors[Random().nextInt(colors.length - 1)],
+                colors[Random().nextInt(colors.length - 1)],
+                colors[Random().nextInt(colors.length - 1)],
+                colors[Random().nextInt(colors.length - 1)],
+              ],
             ),
-            height: 200,
-            width: double.infinity,
-            child: BackdropFilter(
-              filter: ImageFilter.blur(
-                  sigmaX: 10, sigmaY: 8, tileMode: TileMode.clamp),
-              child: SingleChildScrollView(
-                scrollDirection: Axis.horizontal,
-                child: Row(
-                  children: [
-                    Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: thumbnailDecider()),
-                    Padding(
+          ),
+          height: 200,
+          width: double.infinity,
+          child: BackdropFilter(
+            filter: ImageFilter.blur(
+                sigmaX: 10, sigmaY: 8, tileMode: TileMode.clamp),
+            child: SingleChildScrollView(
+              scrollDirection: Axis.horizontal,
+              child: Row(
+                children: [
+                  Padding(
                       padding: const EdgeInsets.all(8.0),
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.spaceAround,
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            widget.title,
-                            style: TextStyle(
-                                overflow: TextOverflow.clip,
-                                fontSize: 20,
-                                fontWeight: FontWeight.w800),
-                            textAlign: TextAlign.start,
-                          ),
-                          Text(
-                            widget.desc,
-                            textAlign: TextAlign.start,
-                            maxLines: 2,
-                            style: TextStyle(
-                              fontSize: 15,
+                      child: thumbnailDecider()),
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          widget.title,
+                          style: TextStyle(
                               overflow: TextOverflow.clip,
-                            ),
-                          )
-                        ],
-                      ),
-                    )
-                  ],
-                ),
+                              fontSize: 20,
+                              fontWeight: FontWeight.w800),
+                          textAlign: TextAlign.start,
+                        ),
+                        Text(
+                          widget.desc,
+                          textAlign: TextAlign.start,
+                          maxLines: 2,
+                          style: TextStyle(
+                            fontSize: 15,
+                            overflow: TextOverflow.clip,
+                          ),
+                        )
+                      ],
+                    ),
+                  )
+                ],
               ),
             ),
           ),
@@ -204,6 +203,10 @@ class _SongWidgetState extends State<SongWidget> {
     if (widget.thumb.trim().isEmpty)
       return Text("");
     else
-      return Text('Imagen cant be loaded');
+      return Image.network(
+        widget.thumb,
+        errorBuilder: (context, error, stackTrace) =>
+            Text("Failed to load thumbnail"),
+      );
   }
 }
