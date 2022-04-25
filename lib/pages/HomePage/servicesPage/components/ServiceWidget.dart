@@ -1,5 +1,6 @@
 // ignore_for_file: unused_import, prefer_const_constructors, file_names
 
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -40,27 +41,31 @@ class _ServicecardWebWidgetState extends State<ServicecardWebWidget> {
               fit: BoxFit.cover,
             ),
           ),
-          Column(
-            mainAxisSize: MainAxisSize.max,
-            mainAxisAlignment: MainAxisAlignment.end,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                widget.title,
-                textAlign: TextAlign.start,
-                style: GoogleFonts.montserrat(
-                  fontSize: 30,
-                  fontWeight: FontWeight.w900,
+          Expanded(
+            child: Column(
+              mainAxisSize: MainAxisSize.max,
+              mainAxisAlignment: MainAxisAlignment.end,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                AutoSizeText(
+                  widget.title,
+                  maxLines: 1,
+                  textAlign: TextAlign.start,
+                  style: GoogleFonts.montserrat(
+                    fontSize: 30,
+                    fontWeight: FontWeight.w900,
+                  ),
                 ),
-              ),
-              Text(
-                widget.desc,
-                textAlign: TextAlign.start,
-                style: GoogleFonts.poppins(
-                  fontSize: 14,
+                AutoSizeText(
+                  widget.desc,
+                  maxLines: 3,
+                  textAlign: TextAlign.start,
+                  style: GoogleFonts.poppins(
+                    fontSize: 14,
+                  ),
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
         ],
       ),
