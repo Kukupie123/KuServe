@@ -12,7 +12,11 @@ class ProviderPlaylist extends ChangeNotifier {
   final playlist = Queue<PlaylistFieldWidget>();
 
   ProviderPlaylist() {
-    playlist.add(PlaylistFieldWidget(index: 0));
+    playlist.add(PlaylistFieldWidget(
+      index: 0,
+      url:
+          "https://www.youtube.com/playlist?list=PLexo0oy2xb1JjsFn_rpbxVkFaRXEH3FU7",
+    ));
   }
 
   void addNew() {

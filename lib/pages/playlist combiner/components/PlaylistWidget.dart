@@ -83,74 +83,64 @@ class _PlaylistWidgetState extends State<PlaylistWidget> {
           children: [
             ClipRect(
               child: ImageFiltered(
-                imageFilter: ImageFilter.blur(sigmaX: 12, sigmaY: 56),
-                child: Image.network(
-                  "https://picsum.photos/seed/152/600",
+                imageFilter: ImageFilter.blur(sigmaX: 5, sigmaY: 5),
+                child: Image.asset(
+                  "6.jpg",
                   width: double.infinity,
                   height: double.infinity,
-                  fit: BoxFit.cover,
+                  fit: BoxFit.fill,
                 ),
               ),
             ),
             Column(
               mainAxisSize: MainAxisSize.max,
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              mainAxisAlignment: MainAxisAlignment.start,
               children: [
-                Column(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  mainAxisSize: MainAxisSize.max,
-                  children: [
-                    HeaderIntroWebWidget(),
-                    Container(
-                      width: MediaQuery.of(context).size.width,
-                      height: MediaQuery.of(context).size.height * 0.3,
-                      child: Consumer<ProviderPlaylist>(
-                        builder: (context, value, child) => Column(
-                          mainAxisSize: MainAxisSize.max,
-                          children: [
-                            Expanded(
-                                child: ListView(
+                HeaderIntroWebWidget(),
+                Expanded(
+                  child: Padding(
+                    padding: const EdgeInsets.only(bottom: 100),
+                    child: Consumer<ProviderPlaylist>(
+                        builder: (context, value, child) => ListView(
                               padding: EdgeInsets.zero,
                               scrollDirection: Axis.vertical,
                               children: Provider.of<ProviderPlaylist>(context,
                                       listen: false)
                                   .playlist
                                   .toList(),
-                            ))
-                          ],
-                        ),
-                      ),
+                            )),
+                  ),
+                ),
+              ],
+            ),
+            Align(
+              alignment: Alignment.bottomCenter,
+              child: Padding(
+                padding: const EdgeInsets.only(bottom: 18, left: 10, right: 10),
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: [
+                    AnimatedButton(
+                      width: 150,
+                      text: _buttonText,
+                      isReverse: true,
+                      selectedTextColor: Color.fromARGB(127, 0, 0, 0),
+                      transitionType: TransitionType.LEFT_TO_RIGHT,
+                      backgroundColor: Color.fromARGB(82, 0, 0, 0),
+                      borderColor: Colors.white,
+                      borderRadius: 50,
+                      borderWidth: 2,
+                      onPress: () {
+                        if (_play)
+                          _getSongs();
+                        else
+                          _combinePlaylits();
+                      },
                     ),
                   ],
                 ),
-                Padding(
-                  padding: const EdgeInsets.all(18.0),
-                  child: Column(
-                    mainAxisSize: MainAxisSize.max,
-                    mainAxisAlignment: MainAxisAlignment.end,
-                    children: [
-                      AnimatedButton(
-                        height: 70,
-                        width: 150,
-                        text: _buttonText,
-                        isReverse: true,
-                        selectedTextColor: Color.fromARGB(127, 0, 0, 0),
-                        transitionType: TransitionType.LEFT_TO_RIGHT,
-                        backgroundColor: Color.fromARGB(82, 0, 0, 0),
-                        borderColor: Colors.white,
-                        borderRadius: 50,
-                        borderWidth: 2,
-                        onPress: () {
-                          if (_play)
-                            _getSongs();
-                          else
-                            _combinePlaylits();
-                        },
-                      ),
-                    ],
-                  ),
-                )
-              ],
+              ),
             )
           ],
         ),

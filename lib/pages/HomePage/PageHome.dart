@@ -30,9 +30,8 @@ class _PageHomeState extends State<PageHome> {
                 imageFilter: ImageFilter.blur(sigmaX: 2, sigmaY: 20),
                 child: Align(
                   alignment: AlignmentDirectional(0, 0),
-                  child: CachedNetworkImage(
-                    imageUrl:
-                        'https://i.pinimg.com/564x/7c/51/1e/7c511e381c757d432f8c8e94982bfc02.jpg',
+                  child: Image.asset(
+                    '1.gif',
                     width: MediaQuery.of(context).size.width,
                     height: MediaQuery.of(context).size.height * 1,
                     fit: BoxFit.cover,

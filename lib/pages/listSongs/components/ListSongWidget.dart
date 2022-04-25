@@ -91,9 +91,8 @@ class _ListSongWidgetState extends State<ListSongWidget> {
             children: [
               ImageFiltered(
                 imageFilter: ImageFilter.blur(sigmaX: 2, sigmaY: 2),
-                child: CachedNetworkImage(
-                  imageUrl:
-                      "https://img3.goodfon.com/wallpaper/nbig/4/12/3d-fioletovyy-krugi-svechenie.jpg",
+                child: Image.asset(
+                  "7.jpg",
                   fit: BoxFit.cover,
                   width: double.infinity,
                   height: double.infinity,
