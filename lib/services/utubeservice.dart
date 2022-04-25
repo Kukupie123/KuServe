@@ -1,6 +1,7 @@
-// ignore_for_file: avoid_print, unnecessary_brace_in_string_interps
+// ignore_for_file: avoid_print, unnecessary_brace_in_string_interps, curly_braces_in_flow_control_structures
 
 import 'dart:convert';
+import 'dart:developer';
 import 'dart:io';
 import 'package:http/http.dart' as http;
 import 'package:utube_playlist_combiner/models/MinimalVideo.dart';
@@ -25,13 +26,25 @@ class UtubeService {
   static const _baseUrl = "www.googleapis.com";
   static const _key = "AIzaSyAEnBieHIcJcqNJld9EYw6Ov8nzVJGh7Fg";
 
-  static Future<PlaylistItem> getPlaylistItem(String playlistID) async {
-    Map<String, String> parameters = {
-      'part': 'contentDetails',
-      'playlistId': playlistID,
-      'key': _key,
-      "maxResults": 50.toString(),
-    };
+  static Future<PlaylistItem> getPlaylistItem(String playlistID,
+      {String? nextPageToken}) async {
+    Map<String, String> parameters;
+    if (nextPageToken == null)
+      parameters = {
+        'part': 'contentDetails',
+        'playlistId': playlistID,
+        'key': _key,
+        "maxResults": 50.toString(),
+      };
+    else
+      parameters = {
+        'part': 'contentDetails',
+        'playlistId': playlistID,
+        'key': _key,
+        "maxResults": 50.toString(),
+        "pageToken": nextPageToken
+      };
+
     Map<String, String> header = {
       HttpHeaders.contentTypeHeader: "application/json"
     };
@@ -54,7 +67,7 @@ class UtubeService {
     return playlistItem;
   }
 
-  static Future<MinimalVideoItem> getVideoItemFromSong(String id) async {
+  static Future<MinimalVideoItem?> getVideoItemFromSong(String id) async {
     Map<String, String> parameters = {
       'part': 'snippet,contentDetails,statistics',
       'id': id,
@@ -73,7 +86,8 @@ Get video from song status exception ''' +
           resp.statusCode.toString());
 
     var mapped = json.decode(resp.body);
-
+    var i = mapped['items'] as List;
+    if (i.isEmpty) return null;
     var item = mapped['items'][0];
 
     String desc = item['snippet']['description'];

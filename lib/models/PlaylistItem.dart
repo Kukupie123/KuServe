@@ -1,5 +1,35 @@
 // ignore_for_file: file_names, prefer_collection_literals
 
+//NOTE!!!!!!!!
+//YouTube Data API v3 results are paginated. So you need to get the next page of results for the others.
+
+// Basically in the response you have nextPageToken.
+
+// To get the remaining results, do the same exact call but setting pageToken into that token you received.
+/*
+
+{
+  "kind": "youtube#playlistItemListResponse",
+  "etag": "Ng6QY2LlpK0QrinrlelKEFIzRxk",
+  "nextPageToken": "EAAaBlBUOkNBRQ",
+  "items": [
+    {
+      "kind": "youtube#playlistItem",
+      "etag": "UN_AyE2DQeYLsplz3t3Xe-_ui2c",
+      "id": "UEwwNkYyMDdBRTQzNEI0M0E4LkEwNTIyNjNGOTg5NkRCMDU",
+      "contentDetails": {
+        "videoId": "D2-yQQxexhA"
+      }
+    }
+  ],
+  "pageInfo": {
+    "totalResults": 168,
+    "resultsPerPage": 1
+  }
+}
+}
+ 
+ */
 class PlaylistItem {
   String? kind;
   String? etag;

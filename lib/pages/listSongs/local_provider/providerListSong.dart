@@ -20,7 +20,7 @@ class ProviderListSong with ChangeNotifier {
     length = songsIDs.length;
     for (int i = 0; i < length; i++) {
       var a = await UtubeService.getVideoItemFromSong(songsIDs[i]!);
-      items.add(a);
+      if (a != null) items.add(a);
     }
     _updateVideoItems(items);
   }
