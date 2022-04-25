@@ -9,6 +9,9 @@ import 'package:utube_playlist_combiner/pages/HomePage/local_provider/ProviderHo
 import 'Routes.dart';
 
 void main() {
+  FlutterError.onError = (FlutterErrorDetails e) {
+    print(e.exception.toString());
+  };
   runApp(const MyApp());
 }
 

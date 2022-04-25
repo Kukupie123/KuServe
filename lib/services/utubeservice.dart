@@ -40,7 +40,9 @@ class UtubeService {
 
     Uri uri = Uri.https(_baseUrl, "/youtube/v3/playlistItems", parameters);
 
-    var resp = await http.get(uri, headers: header);
+    var resp = await http.get(uri, headers: header).catchError((e) {
+      throw Exception(e.toString());
+    });
     log.d(
         "Response code ${resp.statusCode.toString()} and body ${resp.body.toString()}");
 

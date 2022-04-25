@@ -113,19 +113,18 @@ class _HomePageWidgetState extends State<HomePageWidget> {
       SmartDialog.showLoading(
         clickBgDismissTemp: true,
         backDismiss: true,
-        widget: Flexible(
-            child: Container(
-                color: Colors.black,
-                child: Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Text(
-                    e.toString().replaceAll("Exception:", ""),
-                    style: GoogleFonts.yrsa(
-                      fontSize: 20,
-                      color: Colors.white,
-                    ),
-                  ),
-                ))),
+        widget: Container(
+            color: Colors.black,
+            child: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Text(
+                e.toString().replaceAll("Exception:", ""),
+                style: GoogleFonts.yrsa(
+                  fontSize: 20,
+                  color: Colors.white,
+                ),
+              ),
+            )),
       );
     }
   }

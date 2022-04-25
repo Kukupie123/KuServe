@@ -47,6 +47,7 @@ class ProviderPlaylistCombiner extends ChangeNotifier {
       //https://www.youtube.com/playlist?list=PLfJxOs8CS6Bsr6opEuSQcm_iAvAQvMexx
       id = s.replaceAll("https://", "");
       id = id.replaceAll("www.youtube.com/playlist?list=", "");
+      id = id.replaceAll("youtube.com/playlist?list=", "");
       playlistIDs.add(id);
     }
 
