@@ -29,7 +29,8 @@ class UtubeService {
     Map<String, String> parameters = {
       'part': 'contentDetails',
       'playlistId': playlistID,
-      'key': _key
+      'key': _key,
+      "maxResults": 50.toString(),
     };
     Map<String, String> header = {
       HttpHeaders.contentTypeHeader: "application/json"
