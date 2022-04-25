@@ -16,6 +16,7 @@ class HeaderIntroWebWidget extends StatefulWidget {
 }
 
 class _HeaderIntroWebWidgetState extends State<HeaderIntroWebWidget> {
+  final rand = Random();
   final colors = [
     Color.fromARGB(189, 9, 74, 131),
     Color(0x896D7684),
@@ -64,16 +65,16 @@ class _HeaderIntroWebWidgetState extends State<HeaderIntroWebWidget> {
   Widget _mobileHeader() {
     return AnimatedContainer(
       duration: Duration(milliseconds: 2000),
-      curve: curves[Random().nextInt(curves.length - 1)],
+      curve: curves[rand.nextInt(curves.length - 1)],
       width: double.infinity,
       height: 180,
       decoration: BoxDecoration(
         gradient: LinearGradient(
           colors: [
-            colors[Random().nextInt(colors.length - 1)],
-            colors[Random().nextInt(colors.length - 1)],
-            colors[Random().nextInt(colors.length - 1)],
-            colors[Random().nextInt(colors.length - 1)],
+            colors[rand.nextInt(colors.length - 1)],
+            colors[rand.nextInt(colors.length - 1)],
+            colors[rand.nextInt(colors.length - 1)],
+            colors[rand.nextInt(colors.length - 1)],
             Color.fromARGB(82, 7, 31, 53),
           ],
           tileMode: TileMode.clamp,
@@ -247,16 +248,16 @@ class _HeaderIntroWebWidgetState extends State<HeaderIntroWebWidget> {
   Widget _desktopHeader() {
     return AnimatedContainer(
       duration: Duration(milliseconds: 2000),
-      curve: curves[Random().nextInt(curves.length - 1)],
+      curve: curves[rand.nextInt(curves.length - 1)],
       width: double.infinity,
       height: 220,
       decoration: BoxDecoration(
         gradient: LinearGradient(
           colors: [
-            colors[Random().nextInt(colors.length - 1)],
-            colors[Random().nextInt(colors.length - 1)],
-            colors[Random().nextInt(colors.length - 1)],
-            colors[Random().nextInt(colors.length - 1)],
+            colors[rand.nextInt(colors.length - 1)],
+            colors[rand.nextInt(colors.length - 1)],
+            colors[rand.nextInt(colors.length - 1)],
+            colors[rand.nextInt(colors.length - 1)],
             Color.fromARGB(82, 7, 31, 53),
           ],
           tileMode: TileMode.clamp,

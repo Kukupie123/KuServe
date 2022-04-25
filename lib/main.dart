@@ -39,7 +39,7 @@ class MyApp extends StatelessWidget {
         ),
         home: const PageHome(),
         onGenerateRoute: Routes.generateRoute,
-        initialRoute: Routes.home,
+        initialRoute: Routes.songsPlayer,
       ),
     );
   }

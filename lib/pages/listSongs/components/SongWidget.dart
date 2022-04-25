@@ -3,7 +3,6 @@
 import 'dart:math';
 import 'dart:ui';
 
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 
 class SongWidget extends StatefulWidget {
@@ -25,6 +24,19 @@ class SongWidget extends StatefulWidget {
 
 class _SongWidgetState extends State<SongWidget> {
   final rand = Random();
+  final List colors = [
+    Color.fromARGB(127, 255, 64, 128),
+    Color.fromARGB(125, 96, 125, 139),
+    Color.fromARGB(125, 68, 137, 255),
+    Color.fromARGB(124, 28, 70, 143),
+    Color.fromARGB(122, 158, 158, 158),
+    Color.fromARGB(104, 71, 92, 56),
+    Color.fromARGB(155, 13, 177, 218),
+    Color.fromARGB(121, 185, 41, 41),
+    Color.fromARGB(121, 9, 30, 54),
+    Color.fromARGB(121, 30, 170, 163),
+    Color.fromARGB(121, 156, 155, 95),
+  ];
 
   @override
   Widget build(BuildContext context) {
@@ -43,19 +55,6 @@ class _SongWidgetState extends State<SongWidget> {
   }
 
   Widget _mobile() {
-    List colors = [
-      Color.fromARGB(127, 255, 64, 128),
-      Color.fromARGB(125, 96, 125, 139),
-      Color.fromARGB(125, 68, 137, 255),
-      Color.fromARGB(124, 28, 70, 143),
-      Color.fromARGB(122, 158, 158, 158),
-      Color.fromARGB(104, 71, 92, 56),
-      Color.fromARGB(155, 13, 177, 218),
-      Color.fromARGB(121, 185, 41, 41),
-      Color.fromARGB(121, 9, 30, 54),
-      Color.fromARGB(121, 30, 170, 163),
-      Color.fromARGB(121, 156, 155, 95),
-    ];
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: ClipRRect(
@@ -65,10 +64,10 @@ class _SongWidgetState extends State<SongWidget> {
           decoration: BoxDecoration(
             gradient: LinearGradient(
               colors: [
-                colors[Random().nextInt(colors.length - 1)],
-                colors[Random().nextInt(colors.length - 1)],
-                colors[Random().nextInt(colors.length - 1)],
-                colors[Random().nextInt(colors.length - 1)],
+                colors[rand.nextInt(colors.length - 1)],
+                colors[rand.nextInt(colors.length - 1)],
+                colors[rand.nextInt(colors.length - 1)],
+                colors[rand.nextInt(colors.length - 1)],
               ],
             ),
           ),
@@ -121,19 +120,6 @@ class _SongWidgetState extends State<SongWidget> {
   }
 
   Widget _desk() {
-    List colors = [
-      Color.fromARGB(127, 255, 64, 128),
-      Color.fromARGB(125, 96, 125, 139),
-      Color.fromARGB(125, 68, 137, 255),
-      Color.fromARGB(124, 28, 70, 143),
-      Color.fromARGB(122, 158, 158, 158),
-      Color.fromARGB(104, 71, 92, 56),
-      Color.fromARGB(155, 13, 177, 218),
-      Color.fromARGB(121, 185, 41, 41),
-      Color.fromARGB(121, 9, 30, 54),
-      Color.fromARGB(121, 30, 170, 163),
-      Color.fromARGB(121, 156, 155, 95),
-    ];
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: ClipRRect(
@@ -143,12 +129,12 @@ class _SongWidgetState extends State<SongWidget> {
           decoration: BoxDecoration(
             gradient: LinearGradient(
               colors: [
-                colors[Random().nextInt(colors.length - 1)],
-                colors[Random().nextInt(colors.length - 1)],
-                colors[Random().nextInt(colors.length - 1)],
-                colors[Random().nextInt(colors.length - 1)],
-                colors[Random().nextInt(colors.length - 1)],
-                colors[Random().nextInt(colors.length - 1)],
+                colors[rand.nextInt(colors.length - 1)],
+                colors[rand.nextInt(colors.length - 1)],
+                colors[rand.nextInt(colors.length - 1)],
+                colors[rand.nextInt(colors.length - 1)],
+                colors[rand.nextInt(colors.length - 1)],
+                colors[rand.nextInt(colors.length - 1)],
               ],
             ),
           ),

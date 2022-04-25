@@ -2,6 +2,7 @@
 
 import 'package:flutter/cupertino.dart';
 import 'package:utube_playlist_combiner/pages/HomePage/PageHome.dart';
+import 'package:utube_playlist_combiner/pages/SongPlayer/PageSongsPlayer.dart';
 import 'package:utube_playlist_combiner/pages/listSongs/PageListSong.dart';
 import 'package:utube_playlist_combiner/pages/playlist%20combiner/PagePlaylist.dart';
 
@@ -9,6 +10,8 @@ class Routes {
   static const String playListCombine = "/Playlist-combiner";
   static const String playlistCombined = "/combined";
   static const String home = "/";
+
+  static const String songsPlayer = "/songs-player";
 
   static Route<dynamic> generateRoute(RouteSettings settings) {
     switch (settings.name) {
@@ -23,6 +26,10 @@ class Routes {
       case home:
         return _GeneratePageRoute(settings.arguments,
             widget: PageHome(), routeName: settings.name!);
+
+      case songsPlayer:
+        return _GeneratePageRoute(settings.arguments,
+            widget: PageSongsPlayer(), routeName: settings.name!);
     }
     throw Exception("No route found");
   }
