@@ -42,3 +42,4 @@ class MyApp extends StatelessWidget {
     );
   }
 }
+//TODO: add helpful details such as total songs and useful info
