@@ -8,15 +8,15 @@ import 'package:utube_playlist_combiner/services/utubeservice.dart';
 
 import '../components/PlaylistFieldWidget.dart';
 
-class ProviderHomePage extends ChangeNotifier {
+class ProviderPlaylistCombiner extends ChangeNotifier {
   final playlist = Queue<PlaylistFieldWidget>();
 
-  ProviderHomePage() {
-    playlist.add(PlaylistFieldWidget(url: "", index: 0));
+  ProviderPlaylistCombiner() {
+    playlist.add(PlaylistFieldWidget(index: 0));
   }
 
   void addNew() {
-    playlist.addLast(PlaylistFieldWidget(url: "", index: 1));
+    playlist.addLast(PlaylistFieldWidget(index: 1));
     notifyListeners();
   }
 
@@ -38,10 +38,14 @@ class ProviderHomePage extends ChangeNotifier {
       }
     }
 
+    if (urls.isEmpty) throw Exception("No URL found");
+
     //extract playlistID from the urls
     for (String s in urls) {
+      if (s.trim().isEmpty) continue;
+      String id = "";
       //https://www.youtube.com/playlist?list=PLfJxOs8CS6Bsr6opEuSQcm_iAvAQvMexx
-      String id = s.replaceAll("https://", "");
+      id = s.replaceAll("https://", "");
       id = id.replaceAll("www.youtube.com/playlist?list=", "");
       playlistIDs.add(id);
     }

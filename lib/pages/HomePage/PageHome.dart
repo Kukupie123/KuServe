@@ -1,4 +1,4 @@
-// ignore_for_file: file_names, prefer_const_literals_to_create_immutables, prefer_const_constructors
+// ignore_for_file: file_names, prefer_const_literals_to_create_immutables, prefer_const_constructors, import_of_legacy_library_into_null_safe
 
 import 'dart:ui';
 

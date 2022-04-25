@@ -46,6 +46,7 @@ dependencies:
   motion_tab_bar_v2: ^0.2.3
   flutter_slider_drawer: ^2.1.1
   flutter_smart_dialog: ^3.4.2+2
+  titled_navigation_bar: ^5.0.0-nullsafety.0
 
 dev_dependencies:
   flutter_test:

@@ -1,4 +1,4 @@
-// ignore_for_file: file_names
+// ignore_for_file: file_names, import_of_legacy_library_into_null_safe
 
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -17,7 +17,7 @@ class _PagePlaylistCombinerState extends State<PagePlaylistCombiner> {
   @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider(
-      create: (context) => ProviderHomePage(),
+      create: (context) => ProviderPlaylistCombiner(),
       child: HomePageWidget(),
     );
   }

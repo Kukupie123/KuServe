@@ -6,6 +6,7 @@ import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:utube_playlist_combiner/Routes.dart';
 
 class HeaderIntroWebWidget extends StatefulWidget {
   const HeaderIntroWebWidget({Key? key}) : super(key: key);
@@ -51,20 +52,28 @@ class _HeaderIntroWebWidgetState extends State<HeaderIntroWebWidget> {
       ),
       child: Column(
         children: [
-          Row(
-            mainAxisSize: MainAxisSize.max,
-            children: [
-              Text('Ku',
+          GestureDetector(
+            onTap: () {
+              if (ModalRoute.of(context)!.settings.name != Routes.home) {
+                log("Going homepage");
+                Navigator.pushReplacementNamed(context, Routes.home);
+              }
+            },
+            child: Row(
+              mainAxisSize: MainAxisSize.max,
+              children: [
+                Text('Ku',
+                    style: GoogleFonts.montserrat(
+                        color: Color(0xFFC04064),
+                        fontWeight: FontWeight.w900,
+                        fontSize: 35)),
+                Text(
+                  'Serv',
                   style: GoogleFonts.montserrat(
-                      color: Color(0xFFC04064),
-                      fontWeight: FontWeight.w900,
-                      fontSize: 35)),
-              Text(
-                'Serv',
-                style: GoogleFonts.montserrat(
-                    color: Color(0xFF9FA8DA), fontSize: 35),
-              ),
-            ],
+                      color: Color(0xFF9FA8DA), fontSize: 35),
+                ),
+              ],
+            ),
           ),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -228,20 +237,28 @@ class _HeaderIntroWebWidgetState extends State<HeaderIntroWebWidget> {
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                Row(
-                  mainAxisSize: MainAxisSize.max,
-                  children: [
-                    Text('Ku',
+                GestureDetector(
+                  onTap: () {
+                    if (ModalRoute.of(context)!.settings.name != Routes.home) {
+                      log("Going homepage");
+                      Navigator.pushReplacementNamed(context, Routes.home);
+                    }
+                  },
+                  child: Row(
+                    mainAxisSize: MainAxisSize.max,
+                    children: [
+                      Text('Ku',
+                          style: GoogleFonts.montserrat(
+                              color: Color(0xFFC04064),
+                              fontWeight: FontWeight.w900,
+                              fontSize: 50)),
+                      Text(
+                        'Serv',
                         style: GoogleFonts.montserrat(
-                            color: Color(0xFFC04064),
-                            fontWeight: FontWeight.w900,
-                            fontSize: 50)),
-                    Text(
-                      'Serv',
-                      style: GoogleFonts.montserrat(
-                          color: Color(0xFF9FA8DA), fontSize: 45),
-                    ),
-                  ],
+                            color: Color(0xFF9FA8DA), fontSize: 45),
+                      ),
+                    ],
+                  ),
                 ),
                 Expanded(
                   child: Row(

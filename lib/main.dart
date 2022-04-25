@@ -1,4 +1,4 @@
-// ignore_for_file: prefer_const_literals_to_create_immutables
+// ignore_for_file: prefer_const_literals_to_create_immutables, import_of_legacy_library_into_null_safe
 
 import 'package:flutter/material.dart';
 import 'package:flutter_smart_dialog/flutter_smart_dialog.dart';
@@ -27,7 +27,7 @@ class MyApp extends StatelessWidget {
       builder: (c, i) => MaterialApp(
         navigatorObservers: [FlutterSmartDialog.observer],
         builder: FlutterSmartDialog.init(),
-        title: "KUKODE UTube Playlist Combiner",
+        title: "KUKUKODE's KuServ",
         theme: ThemeData(
           primarySwatch: Colors.blueGrey,
         ),

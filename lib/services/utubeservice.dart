@@ -44,7 +44,12 @@ class UtubeService {
     log.d(
         "Response code ${resp.statusCode.toString()} and body ${resp.body.toString()}");
 
-    if (resp.statusCode != 200) throw Exception(resp.statusCode.toString());
+    if (resp.statusCode != 200) {
+      if (resp.statusCode == 404) {
+        throw Exception("Playlist with ID ${playlistID} not found!");
+      }
+      throw Exception(json.decode(resp.body)['error']['message']);
+    }
 
     PlaylistItem playlistItem = PlaylistItem.fromJson(json.decode(resp.body));
 
