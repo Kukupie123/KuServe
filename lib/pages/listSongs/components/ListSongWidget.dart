@@ -9,19 +9,21 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'package:titled_navigation_bar/titled_navigation_bar.dart';
 import 'package:utube_playlist_combiner/pages/HomePage/Components/Header/HeaderWidget.dart';
-import 'package:utube_playlist_combiner/pages/combined/components/SongWidget.dart';
-import 'package:utube_playlist_combiner/pages/combined/local_provider/providerCombined.dart';
+import 'package:utube_playlist_combiner/pages/listSongs/local_provider/providerListSong.dart';
+import 'package:utube_playlist_combiner/pages/playlist%20combiner/local_provider/providerplaylistpage.dart';
 
-class CombinedWidget extends StatefulWidget {
+import 'SongWidget.dart';
+
+class ListSongWidget extends StatefulWidget {
   final RouteSettings parentSetting;
-  const CombinedWidget({Key? key, required this.parentSetting})
+  const ListSongWidget({Key? key, required this.parentSetting})
       : super(key: key);
 
   @override
-  State<CombinedWidget> createState() => _CombinedWidgetState();
+  State<ListSongWidget> createState() => _ListSongWidgetState();
 }
 
-class _CombinedWidgetState extends State<CombinedWidget> {
+class _ListSongWidgetState extends State<ListSongWidget> {
   @override
   void initState() {
     super.initState();
@@ -30,7 +32,7 @@ class _CombinedWidgetState extends State<CombinedWidget> {
   @override
   Widget build(BuildContext context) {
     var providerCombined =
-        Provider.of<ProviderCombined>(context, listen: false);
+        Provider.of<ProviderListSong>(context, listen: false);
     if (widget.parentSetting.arguments != null)
       providerCombined.songsIDs =
           widget.parentSetting.arguments as List<String?>;
@@ -83,7 +85,7 @@ class _CombinedWidgetState extends State<CombinedWidget> {
           ]),
       body: Container(
         width: MediaQuery.of(context).size.width,
-        child: Consumer<ProviderCombined>(
+        child: Consumer<ProviderPlaylist>(
           builder: (context, value, child) => Stack(
             children: [
               ImageFiltered(
@@ -142,9 +144,9 @@ class _CombinedWidgetState extends State<CombinedWidget> {
 
   Widget _videsWidgetDecider() {
     var providerCombined =
-        Provider.of<ProviderCombined>(context, listen: false);
+        Provider.of<ProviderListSong>(context, listen: false);
 
-    if (Provider.of<ProviderCombined>(context, listen: false).itemVideos ==
+    if (Provider.of<ProviderListSong>(context, listen: false).itemVideos ==
         null) {
       return Text("Processing songs");
     } else {

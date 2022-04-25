@@ -2,8 +2,8 @@
 
 import 'package:flutter/cupertino.dart';
 import 'package:utube_playlist_combiner/pages/HomePage/PageHome.dart';
-import 'package:utube_playlist_combiner/pages/combined/PageCombined.dart';
-import 'package:utube_playlist_combiner/pages/playlist%20combiner/PageLanding.dart';
+import 'package:utube_playlist_combiner/pages/listSongs/PageListSong.dart';
+import 'package:utube_playlist_combiner/pages/playlist%20combiner/PagePlaylist.dart';
 
 class Routes {
   static const String playListCombine = "/Playlist-combiner";
@@ -14,11 +14,11 @@ class Routes {
     switch (settings.name) {
       case playListCombine:
         return _GeneratePageRoute(settings.arguments,
-            routeName: settings.name!, widget: PagePlaylistCombiner());
+            routeName: settings.name!, widget: PagePlaylist());
 
       case playlistCombined:
         return _GeneratePageRoute(settings.arguments,
-            routeName: settings.name!, widget: PagePlaylistCombined());
+            routeName: settings.name!, widget: PageListSong());
 
       case home:
         return _GeneratePageRoute(settings.arguments,

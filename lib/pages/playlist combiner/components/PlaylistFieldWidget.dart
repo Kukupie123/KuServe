@@ -6,7 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_smart_dialog/flutter_smart_dialog.dart';
 import 'package:provider/provider.dart';
 
-import '../local_provider/providerHomepage.dart';
+import '../local_provider/providerplaylistpage.dart';
 
 class PlaylistFieldWidget extends StatelessWidget {
   PlaylistFieldWidget({Key? key, required this.index}) : super(key: key);
@@ -77,8 +77,7 @@ class PlaylistFieldWidget extends StatelessWidget {
 
   void _onDelete(BuildContext context) {
     if (index != 0) {
-      Provider.of<ProviderPlaylistCombiner>(context, listen: false)
-          .remove(this);
+      Provider.of<ProviderPlaylist>(context, listen: false).remove(this);
     } else {
       SmartDialog.showToast("Can't delete initial field");
     }
@@ -86,8 +85,7 @@ class PlaylistFieldWidget extends StatelessWidget {
 
   void _onInput(String s, BuildContext context) {
     if (s.isNotEmpty) {
-      var list = Provider.of<ProviderPlaylistCombiner>(context, listen: false)
-          .playlist;
+      var list = Provider.of<ProviderPlaylist>(context, listen: false).playlist;
 
       int thisIndex = -1;
       for (int i = 0; i < list.length; i++) {
@@ -101,15 +99,14 @@ class PlaylistFieldWidget extends StatelessWidget {
       //check if thisIndex is last element
       if (thisIndex == list.length - 1) {
         //Last index so we need to add new item
-        Provider.of<ProviderPlaylistCombiner>(context, listen: false).addNew();
+        Provider.of<ProviderPlaylist>(context, listen: false).addNew();
         log("Adding new playlist");
       } else {
         //Not last so we do not need to do anything
         log("No need to add new playlist item");
       }
     } else if (index != 0) {
-      var list = Provider.of<ProviderPlaylistCombiner>(context, listen: false)
-          .playlist;
+      var list = Provider.of<ProviderPlaylist>(context, listen: false).playlist;
       list.remove(this);
     }
   }

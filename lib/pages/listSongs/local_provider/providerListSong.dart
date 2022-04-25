@@ -6,7 +6,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:utube_playlist_combiner/models/MinimalVideo.dart';
 import 'package:utube_playlist_combiner/services/utubeservice.dart';
 
-class ProviderCombined with ChangeNotifier {
+class ProviderListSong with ChangeNotifier {
   late List<String?> songsIDs = [];
 
   List<MinimalVideoItem>? itemVideos;

@@ -8,10 +8,10 @@ import 'package:utube_playlist_combiner/services/utubeservice.dart';
 
 import '../components/PlaylistFieldWidget.dart';
 
-class ProviderPlaylistCombiner extends ChangeNotifier {
+class ProviderPlaylist extends ChangeNotifier {
   final playlist = Queue<PlaylistFieldWidget>();
 
-  ProviderPlaylistCombiner() {
+  ProviderPlaylist() {
     playlist.add(PlaylistFieldWidget(index: 0));
   }
 

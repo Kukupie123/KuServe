@@ -1,7 +1,8 @@
 // ignore_for_file: avoid_unnecessary_containers, prefer_final_fields, file_names, prefer_const_constructors
 
 import 'package:flutter/cupertino.dart';
-import 'package:utube_playlist_combiner/pages/HomePage/servicesPage/PageServices.dart';
+
+import '../Components/servicesPage/PageServices.dart';
 
 class ProviderHome with ChangeNotifier {
   int _indx = 0;

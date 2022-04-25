@@ -11,14 +11,14 @@ import 'package:provider/provider.dart';
 import 'package:utube_playlist_combiner/Routes.dart';
 import 'package:utube_playlist_combiner/pages/HomePage/Components/Header/HeaderWidget.dart';
 
-import '../local_provider/providerHomepage.dart';
+import '../local_provider/providerplaylistpage.dart';
 
-class HomePageWidget extends StatefulWidget {
+class PlaylistWidget extends StatefulWidget {
   @override
-  _HomePageWidgetState createState() => _HomePageWidgetState();
+  _PlaylistWidgetState createState() => _PlaylistWidgetState();
 }
 
-class _HomePageWidgetState extends State<HomePageWidget> {
+class _PlaylistWidgetState extends State<PlaylistWidget> {
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
   bool _play = true;
@@ -104,7 +104,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                     Container(
                       width: MediaQuery.of(context).size.width,
                       height: MediaQuery.of(context).size.height * 0.3,
-                      child: Consumer<ProviderPlaylistCombiner>(
+                      child: Consumer<ProviderPlaylist>(
                         builder: (context, value, child) => Column(
                           mainAxisSize: MainAxisSize.max,
                           children: [
@@ -112,8 +112,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                 child: ListView(
                               padding: EdgeInsets.zero,
                               scrollDirection: Axis.vertical,
-                              children: Provider.of<ProviderPlaylistCombiner>(
-                                      context,
+                              children: Provider.of<ProviderPlaylist>(context,
                                       listen: false)
                                   .playlist
                                   .toList(),
@@ -166,9 +165,8 @@ class _HomePageWidgetState extends State<HomePageWidget> {
 
   void _getSongs() async {
     try {
-      var a =
-          await Provider.of<ProviderPlaylistCombiner>(context, listen: false)
-              .processPlaylist();
+      var a = await Provider.of<ProviderPlaylist>(context, listen: false)
+          .processPlaylist();
 
       Navigator.pushNamed(context, Routes.playlistCombined, arguments: a);
     } on Exception catch (e) {
