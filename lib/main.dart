@@ -1,6 +1,7 @@
 // ignore_for_file: prefer_const_literals_to_create_immutables
 
 import 'package:flutter/material.dart';
+import 'package:flutter_smart_dialog/flutter_smart_dialog.dart';
 import 'package:provider/provider.dart';
 import 'package:utube_playlist_combiner/pages/HomePage/PageHome.dart';
 import 'package:utube_playlist_combiner/pages/HomePage/local_provider/ProviderHome.dart';
@@ -24,6 +25,8 @@ class MyApp extends StatelessWidget {
         )
       ],
       builder: (c, i) => MaterialApp(
+        navigatorObservers: [FlutterSmartDialog.observer],
+        builder: FlutterSmartDialog.init(),
         title: "KUKODE UTube Playlist Combiner",
         theme: ThemeData(
           primarySwatch: Colors.blueGrey,
