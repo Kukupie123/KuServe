@@ -198,7 +198,7 @@ class _ListSongWidgetState extends State<ListSongWidget> {
 
     var pro = Provider.of<ProviderListSong>(context, listen: false);
 
-    String url = "https://vue-vxttuf.stackblitz.io/?data=";
+    String url = "http://localhost:8080/?data=";
     //We need to create object the site demands a url,title,desc,thumbnail,url
 
     List<Map<String, String>> objects = [];
@@ -211,10 +211,9 @@ class _ListSongWidgetState extends State<ListSongWidget> {
         "artist": p.itemVideos![i].desc
       });
     }
-
-    String data = jsonEncode(objects);
-    log(data);
-    url = url + data;
+    final bytes = utf8.encode(json.encode(objects));
+    final base64Str = base64.encode(bytes);
+    url = url + base64Str;
     if (!await launch(url)) throw 'Could not launch $url';
   }
 }
