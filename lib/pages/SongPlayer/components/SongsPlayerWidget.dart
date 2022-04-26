@@ -1,9 +1,12 @@
 // ignore_for_file: curly_braces_in_flow_control_structures, prefer_const_constructors, duplicate_ignore, file_names
 
+import 'dart:developer' as d;
 import 'dart:math';
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:just_audio/just_audio.dart';
 import 'package:youtube_player_iframe/youtube_player_iframe.dart';
 
 class SongsPlayerWidget extends StatefulWidget {
@@ -31,12 +34,12 @@ class _SongsPlayerWidgetState extends State<SongsPlayerWidget> {
     Color.fromARGB(121, 156, 155, 95),
   ];
 
-  late YoutubePlayerController _yts;
   List<String?> _songs = [];
+
+  final ap = AudioPlayer();
 
   @override
   void dispose() {
-    _yts.close();
     super.dispose();
   }
 
@@ -46,30 +49,15 @@ class _SongsPlayerWidgetState extends State<SongsPlayerWidget> {
     if (widget.parentsSetting.arguments != null) {
       _songs = widget.parentsSetting.arguments as List<String?>;
 
-      _yts = YoutubePlayerController(
-        initialVideoId: _songs[0]!,
-        params: YoutubePlayerParams(
-          desktopMode: true,
-          autoPlay: true,
-          enableCaption: false,
-          enableJavaScript: true,
-          enableKeyboard: false,
-          playlist: _getAllSongsExceptFirst(), // Defining custom playlist
-          showControls: true,
-          showFullscreenButton: false,
-          color: 'black',
+      ap.setAudioSource(
+        ConcatenatingAudioSource(
+          children: List.generate(_songs.length, (i) {
+            return AudioSource.uri(Uri.parse(
+                "https://hidden-cove-58643.herokuapp.com/stream" + _songs[i]!));
+          }),
         ),
       );
-    } else {
-      _yts = YoutubePlayerController(
-        initialVideoId: '',
-        params: YoutubePlayerParams(
-          playlist: [''], // Defining custom playlist
-          showControls: true,
-          showFullscreenButton: false,
-          color: 'black',
-        ),
-      );
+      ap.setUrl("https://hidden-cove-58643.herokuapp.com/stream/" + _songs[0]!);
     }
   }
 
@@ -137,12 +125,25 @@ class _SongsPlayerWidgetState extends State<SongsPlayerWidget> {
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    SizedBox(
-                      width: 650,
-                      height: MediaQuery.of(context).size.height * 0.5,
-                      child: YoutubePlayerIFrame(
-                        controller: _yts,
-                      ),
+                    IconButton(
+                      onPressed: () async {
+                        await ap.stop();
+                        await ap.play();
+                      },
+                      icon: Icon(FontAwesomeIcons.play),
+                    ),
+                    IconButton(
+                      onPressed: () async {
+                        await ap.seekToNext();
+                        await ap.play();
+                      },
+                      icon: Icon(FontAwesomeIcons.synagogue),
+                    ),
+                    IconButton(
+                      onPressed: () async {
+                        await ap.stop();
+                      },
+                      icon: Icon(FontAwesomeIcons.stop),
                     )
                   ],
                 ),

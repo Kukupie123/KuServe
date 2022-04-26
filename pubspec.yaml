@@ -50,6 +50,7 @@ dependencies:
   youtube_player_iframe: ^2.2.2
   flutter_animated_button:
   circle_nav_bar: 
+  just_audio: ^0.9.20
 
 dev_dependencies:
   flutter_test:

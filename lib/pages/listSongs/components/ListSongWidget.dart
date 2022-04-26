@@ -1,14 +1,13 @@
 // ignore_for_file: file_names, non_constant_identifier_names, prefer_const_literals_to_create_immutables, prefer_const_constructors, sized_box_for_whitespace, curly_braces_in_flow_control_structures, unused_local_variable, avoid_print, deprecated_member_use
 
-import 'dart:convert';
 import 'dart:developer';
 import 'dart:ui';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_animated_button/flutter_animated_button.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'package:titled_navigation_bar/titled_navigation_bar.dart';
-import 'package:url_launcher/url_launcher.dart';
 import 'package:utube_playlist_combiner/Routes.dart';
 import 'package:utube_playlist_combiner/pages/HomePage/Components/Header/HeaderWidget.dart';
 import 'package:utube_playlist_combiner/pages/listSongs/local_provider/providerListSong.dart';
@@ -194,26 +193,9 @@ class _ListSongWidgetState extends State<ListSongWidget> {
   }
 
   void _playPressed() async {
-    final p = Provider.of<ProviderListSong>(context, listen: false);
-
     var pro = Provider.of<ProviderListSong>(context, listen: false);
 
-    String url = "http://localhost:8080/?data=";
-    //We need to create object the site demands a url,title,desc,thumbnail,url
-
-    List<Map<String, String>> objects = [];
-
-    for (int i = 0; i <= p.itemVideos!.length - 1; i++) {
-      objects.add({
-        "url": "https://www.youtube.com/watch?v=" + p.itemVideos![i].id,
-        "title": p.itemVideos![i].title,
-        "thumbnail": p.itemVideos![i].thumbnail,
-        "artist": p.itemVideos![i].desc
-      });
-    }
-    final bytes = utf8.encode(json.encode(objects));
-    final base64Str = base64.encode(bytes);
-    url = url + base64Str;
-    if (!await launch(url)) throw 'Could not launch $url';
+    Navigator.pushReplacementNamed(context, Routes.songsPlayer,
+        arguments: BasicService.shuffle(pro.songsIDs));
   }
 }
