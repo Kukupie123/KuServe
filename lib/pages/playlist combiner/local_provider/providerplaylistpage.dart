@@ -9,63 +9,83 @@ import 'package:utube_playlist_combiner/services/utubeservice.dart';
 import '../components/PlaylistFieldWidget.dart';
 
 class ProviderPlaylist extends ChangeNotifier {
-  final playlist = Queue<PlaylistFieldWidget>();
+  final playlistInputFields =
+      Queue<PlaylistFieldWidget>(); //Stores all the input fields
 
   ProviderPlaylist() {
-    playlist.add(PlaylistFieldWidget(
+    //Default Input field. index is 0 to signify it can't be deleted
+    playlistInputFields.add(PlaylistFieldWidget(
       index: 0,
       url:
           "https://www.youtube.com/playlist?list=PLexo0oy2xb1JjsFn_rpbxVkFaRXEH3FU7",
     ));
   }
 
+  ///Adds a new Playlist input field
   void addNew() {
-    playlist.addLast(PlaylistFieldWidget(index: 1));
+    playlistInputFields.addLast(PlaylistFieldWidget(index: 1));
     notifyListeners();
   }
 
+  ///Removes a playlist input field
   void remove(PlaylistFieldWidget widget) {
-    playlist.remove(widget);
+    playlistInputFields.remove(widget);
     notifyListeners();
   }
 
+  ///Gets all the songs from the playlist entered in the input fields
   Future<List<String?>> processPlaylist() async {
-    var urls = [];
-    var playlistIDs = [];
-    var iterator = playlist.iterator;
+    var urls = []; //To store the raw urls from the [playlistInputFields]
+
+    var playlistIDs = []; //To store the IDs extracted from the [urls]
+
+    var iterator = playlistInputFields
+        .iterator; //To iterate through the queue[playlistInputFields]
 
     while (iterator.moveNext()) {
-      var p = iterator.current;
+      var playListInputField = iterator.current;
 
-      if (p.tec.text.trim().isNotEmpty) {
-        urls.add(p.tec.text.trim());
+      if (playListInputField.tec.text.trim().isNotEmpty) {
+        urls.add(playListInputField.tec.text.trim());
       }
     }
 
-    if (urls.isEmpty) throw Exception("No URL found");
+    if (urls.isEmpty) {
+      throw Exception("No URL found");
+    } //If no URLs found throw error
 
     //extract playlistID from the urls
     for (String s in urls) {
-      if (s.trim().isEmpty) continue;
-      String id = "";
-      //https://www.youtube.com/playlist?list=PLfJxOs8CS6Bsr6opEuSQcm_iAvAQvMexx
+      if (s.trim().isEmpty) continue; //Safety check. Skip urls which are empty
+
+      String id = ""; //Stores the playlist ID extracted from the URL
+
       id = s.replaceAll("https://", "");
+
       id = id.replaceAll("www.youtube.com/playlist?list=", "");
+
       id = id.replaceAll("youtube.com/playlist?list=", "");
-      playlistIDs.add(id);
+
+      playlistIDs.add(id); //Adds the extracted playlistId[id] to [playlistIDs]
     }
 
-    //Store object in a list
-    List<PlaylistItem> playlistItems = [];
+    List<PlaylistItem> playlistItems =
+        []; //To store the response object that we get after we call getPlaylistItem which is going to give us the information related to the playlist including the video
 
     for (String s in playlistIDs) {
-      //GET THE FIRST PLAYLISTITEM
+      var firstItem = await UtubeService.getPlaylistItem(
+          s); //Got the first playListItem and stored it in firstItem
 
-      var firstItem = await UtubeService.getPlaylistItem(s);
-      //There may be more pages so we need to handle it using this function
-      var firstItemchildren = await _getAllSongsFromPlaylist(firstItem, s, []);
+      /*
+      There may be more pages, and to handle we have the follow steps 
+      */
+      var firstItemchildren = await _getAllSongsFromPlaylist(firstItem, s,
+          []); //stores a list of playlistItem that we got from this recursive function that is going to be called until we run out of next page token
 
+      //Add firstItem to playlistItems
       playlistItems.add(firstItem);
+
+      //Store firstItemChildren to playlistItems if they are not empty
       if (firstItemchildren.isNotEmpty) {
         for (PlaylistItem p in firstItemchildren) {
           playlistItems.add(p);
@@ -73,11 +93,15 @@ class ProviderPlaylist extends ChangeNotifier {
       }
     }
 
-    //get all songs from all playlistitems
-    return _getSongsFromPlaylists(playlistItems);
+    return _getSongsFromPlaylists(
+        playlistItems); //Extracts the songs from the argument of type PlaylistItem and returns a list of string[videoIDs]
   }
 
-  //Recursion
+  /*
+    *A recursive function that is going to keep executing until the parameter[firstItem]  has it's variable [nextPageToken] null
+    *It is going to store the result in the parameter [list] and then pass it to the next recursive call, this way we retain 
+    *the records of the list no matter how deep we are in the recursive tree
+    */
   Future<List<PlaylistItem>> _getAllSongsFromPlaylist(PlaylistItem firstItem,
       String playlistID, List<PlaylistItem> list) async {
     //Check if there is any nextPage
@@ -89,15 +113,14 @@ class ProviderPlaylist extends ChangeNotifier {
     //Next page token exists so we need to get it
     var nextItem = await UtubeService.getPlaylistItem(playlistID,
         nextPageToken: firstItem.nextPageToken);
+    //Adding the item we got into the [list]
+    list.add(nextItem);
 
-    //Now we have item
-
-    list.add(
-        nextItem); //we adding this cuz we got this from nextpagetoken of firstItem object
-
+    //recursion call but we are passing the [nextItem] to check if the [nextItem] also has a nextPageToken
     return _getAllSongsFromPlaylist(nextItem, playlistID, list);
   }
 
+  ///Extracts videoID from PlaylistItem
   List<String?> _getSongsFromPlaylists(List<PlaylistItem> list) {
     List<String?> songs = [];
 
