@@ -49,6 +49,11 @@ class _SongsPlayerWidgetState extends State<SongsPlayerWidget> {
       _yts = YoutubePlayerController(
         initialVideoId: _songs[0]!,
         params: YoutubePlayerParams(
+          desktopMode: true,
+          autoPlay: true,
+          enableCaption: false,
+          enableJavaScript: true,
+          enableKeyboard: false,
           playlist: _getAllSongsExceptFirst(), // Defining custom playlist
           showControls: true,
           showFullscreenButton: false,
@@ -66,8 +71,6 @@ class _SongsPlayerWidgetState extends State<SongsPlayerWidget> {
         ),
       );
     }
-
-    _yts.setSize(Size(5000, 5000));
   }
 
   List<String> _getAllSongsExceptFirst() {
