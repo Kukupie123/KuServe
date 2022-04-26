@@ -120,7 +120,7 @@ class ProviderPlaylist extends ChangeNotifier {
     return _getAllSongsFromPlaylist(nextItem, playlistID, list);
   }
 
-  ///Extracts videoID from PlaylistItem
+  ///Extracts videoID from PlaylistItem and filters out the duplicates
   List<String?> _getSongsFromPlaylists(List<PlaylistItem> list) {
     List<String?> songs = [];
 
@@ -128,6 +128,9 @@ class ProviderPlaylist extends ChangeNotifier {
       List<Items>? a = p.items;
       //add all songs from list
       for (var s in a!) {
+        if (songs.contains(s.contentDetails!.videoId)) {
+          continue; //Video already exists in list so we do not add it. This is useful if playlist has two overlapping songs
+        }
         songs.add(s.contentDetails!.videoId);
       }
     }
