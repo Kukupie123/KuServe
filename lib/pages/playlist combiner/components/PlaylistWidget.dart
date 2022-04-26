@@ -106,7 +106,7 @@ class _PlaylistWidgetState extends State<PlaylistWidget> {
                               scrollDirection: Axis.vertical,
                               children: Provider.of<ProviderPlaylist>(context,
                                       listen: false)
-                                  .playlist
+                                  .playlistInputFields
                                   .toList(),
                             )),
                   ),

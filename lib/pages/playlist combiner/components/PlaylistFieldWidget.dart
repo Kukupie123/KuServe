@@ -118,7 +118,8 @@ class _PlaylistFieldWidgetState extends State<PlaylistFieldWidget> {
 
   void _onInput(String s, BuildContext context) {
     if (s.isNotEmpty) {
-      var list = Provider.of<ProviderPlaylist>(context, listen: false).playlist;
+      var list = Provider.of<ProviderPlaylist>(context, listen: false)
+          .playlistInputFields;
 
       int thisIndex = -1;
       for (int i = 0; i < list.length; i++) {
@@ -137,7 +138,8 @@ class _PlaylistFieldWidgetState extends State<PlaylistFieldWidget> {
         //Not last so we do not need to do anything
       }
     } else if (widget.index != 0) {
-      var list = Provider.of<ProviderPlaylist>(context, listen: false).playlist;
+      var list = Provider.of<ProviderPlaylist>(context, listen: false)
+          .playlistInputFields;
       list.remove(this);
     }
   }
