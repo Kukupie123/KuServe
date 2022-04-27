@@ -196,6 +196,6 @@ class _ListSongWidgetState extends State<ListSongWidget> {
     var pro = Provider.of<ProviderListSong>(context, listen: false);
 
     Navigator.pushReplacementNamed(context, Routes.songsPlayer,
-        arguments: BasicService.shuffle(pro.songsIDs));
+        arguments: BasicService.shuffle(pro.itemVideos!));
   }
 }

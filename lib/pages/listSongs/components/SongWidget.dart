@@ -82,7 +82,6 @@ class _SongWidgetState extends State<SongWidget> {
                 children: [
                   Padding(
                       padding: const EdgeInsets.all(8.0),
-                      //TODO error builder and loading builder using local assets
                       child: thumbnailDecider()),
                   Padding(
                     padding: const EdgeInsets.all(8.0),

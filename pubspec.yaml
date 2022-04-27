@@ -51,6 +51,7 @@ dependencies:
   flutter_animated_button:
   circle_nav_bar: 
   just_audio: ^0.9.20
+  just_audio_background:
 
 dev_dependencies:
   flutter_test:

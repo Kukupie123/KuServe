@@ -1,13 +1,12 @@
 // ignore_for_file: curly_braces_in_flow_control_structures, prefer_const_constructors, duplicate_ignore, file_names
 
-import 'dart:developer' as d;
 import 'dart:math';
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:just_audio/just_audio.dart';
-import 'package:youtube_player_iframe/youtube_player_iframe.dart';
+import 'package:utube_playlist_combiner/models/MinimalVideo.dart';
 
 class SongsPlayerWidget extends StatefulWidget {
   final RouteSettings parentsSetting;
@@ -34,7 +33,7 @@ class _SongsPlayerWidgetState extends State<SongsPlayerWidget> {
     Color.fromARGB(121, 156, 155, 95),
   ];
 
-  List<String?> _songs = [];
+  List<MinimalVideoItem?> _songs = [];
 
   final ap = AudioPlayer();
 
@@ -47,32 +46,20 @@ class _SongsPlayerWidgetState extends State<SongsPlayerWidget> {
   void initState() {
     super.initState();
     if (widget.parentsSetting.arguments != null) {
-      _songs = widget.parentsSetting.arguments as List<String?>;
+      _songs = widget.parentsSetting.arguments as List<MinimalVideoItem?>;
 
       ap.setAudioSource(
         ConcatenatingAudioSource(
           children: List.generate(_songs.length, (i) {
             return AudioSource.uri(Uri.parse(
-                "https://hidden-cove-58643.herokuapp.com/stream" + _songs[i]!));
+                "https://fierce-reef-25402.herokuapp.com/" + _songs[i]!.id));
           }),
         ),
       );
-      ap.setUrl("https://hidden-cove-58643.herokuapp.com/stream/" + _songs[0]!);
     }
   }
 
-  List<String> _getAllSongsExceptFirst() {
-    List<String> l = [];
-
-    var iterator = _songs.iterator;
-
-    while (iterator.moveNext()) {
-      if (iterator.current == _songs[0]) continue;
-      l.add(iterator.current!);
-    }
-    return l;
-  }
-
+//TODO: Global play pause using provider
   @override
   Widget build(BuildContext context) {
     Future.delayed(
