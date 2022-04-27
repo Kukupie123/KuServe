@@ -4,6 +4,7 @@ import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:just_audio/just_audio.dart';
 import 'package:provider/provider.dart';
 import 'package:utube_playlist_combiner/models/MinimalVideo.dart';
 import 'package:utube_playlist_combiner/pages/SongPlayer/v2/provider/providersongplayer.dart';
@@ -92,21 +93,25 @@ class _DetailAudioPageState extends State<DetailAudioPage> {
                   SizedBox(
                     height: height * 0.1,
                   ),
-                  Text(
-                    "Loading",
-                    style: GoogleFonts.mallanna(
-                      fontSize: 30,
-                      fontWeight: FontWeight.w700,
+                  Consumer<ProviderSongPlayer>(
+                    builder: (context, value, child) => Text(
+                      _titleDecider(),
+                      style: GoogleFonts.mallanna(
+                        fontSize: 30,
+                        fontWeight: FontWeight.w700,
+                      ),
                     ),
                   ),
                   SingleChildScrollView(
-                    child: AutoSizeText(
-                      "Loading",
-                      style: GoogleFonts.mallanna(
-                        fontSize: 20,
-                        fontWeight: FontWeight.w500,
+                    child: Consumer<ProviderSongPlayer>(
+                      builder: (context, value, child) => AutoSizeText(
+                        _descDecider(),
+                        style: GoogleFonts.mallanna(
+                          fontSize: 20,
+                          fontWeight: FontWeight.w500,
+                        ),
+                        maxLines: 2,
                       ),
-                      maxLines: 2,
                     ),
                   ),
                   Padding(
@@ -114,27 +119,18 @@ class _DetailAudioPageState extends State<DetailAudioPage> {
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        IconButton(
-                          onPressed: null,
-                          icon: FaIcon(
-                            FontAwesomeIcons.leftLong,
-                            size: 30,
-                          ),
+                        Consumer<ProviderSongPlayer>(
+                          builder: (context, value, child) =>
+                              _prevButtonDecider(),
                         ),
-                        IconButton(
-                          onPressed: null,
-                          icon: FaIcon(
-                            FontAwesomeIcons.play,
-                            size: 30,
-                          ),
+                        Consumer<ProviderSongPlayer>(
+                          builder: (context, value, child) =>
+                              _playbuttonDecider(),
                         ),
-                        IconButton(
-                          onPressed: null,
-                          icon: FaIcon(
-                            FontAwesomeIcons.rightLong,
-                            size: 30,
-                          ),
-                        ),
+                        Consumer<ProviderSongPlayer>(
+                          builder: (context, value, child) =>
+                              _nextButtonDecider(),
+                        )
                       ],
                     ),
                   )
@@ -169,7 +165,7 @@ class _DetailAudioPageState extends State<DetailAudioPage> {
                     ),
                     image: DecorationImage(
                       fit: BoxFit.cover,
-                      image: AssetImage("8.gif"),
+                      image: _mainThumbnailDecider(),
                     ),
                   ),
                 ),
@@ -203,5 +199,88 @@ class _DetailAudioPageState extends State<DetailAudioPage> {
         ],
       ),
     );
+  }
+
+  ProviderSongPlayer _getProvider() {
+    return Provider.of<ProviderSongPlayer>(context, listen: false);
+  }
+
+  ImageProvider _mainThumbnailDecider() {
+    //Check player state
+    switch (_getProvider().processingState) {
+      case ProcessingState.loading:
+        return AssetImage("8.gif");
+      case ProcessingState.buffering:
+        return NetworkImage(_getProvider().getCurrentSong().thumbnail);
+      case ProcessingState.ready:
+        return NetworkImage(_getProvider().getCurrentSong().thumbnail);
+      case ProcessingState.completed:
+        return AssetImage("2.gif");
+      case ProcessingState.idle:
+        //_getProvider().loadSongs();
+        return AssetImage("3.gif");
+    }
+  }
+
+  Widget _nextButtonDecider() {
+    //check player state
+    if (_getProvider().processingState == ProcessingState.ready ||
+        _getProvider().processingState == ProcessingState.buffering) {
+      //If player is ready we can show play and pause
+
+      return IconButton(
+          onPressed: () => _getProvider().next(),
+          icon: FaIcon(FontAwesomeIcons.arrowRight));
+    }
+    return IconButton(
+        onPressed: null, icon: FaIcon(FontAwesomeIcons.arrowRight));
+  }
+
+  Widget _prevButtonDecider() {
+    //check player state
+    if (_getProvider().processingState == ProcessingState.ready ||
+        _getProvider().processingState == ProcessingState.buffering) {
+      //If player is ready we can show play and pause
+
+      return IconButton(
+          onPressed: () => _getProvider().prev(),
+          icon: FaIcon(FontAwesomeIcons.arrowLeft));
+    }
+    return IconButton(
+        onPressed: null, icon: FaIcon(FontAwesomeIcons.arrowLeft));
+  }
+
+  Widget _playbuttonDecider() {
+    //check player state
+    if (_getProvider().processingState == ProcessingState.ready ||
+        _getProvider().processingState == ProcessingState.buffering) {
+      //If player is ready we can show play and pause
+      if (_getProvider().isPlaying) {
+        return IconButton(
+            onPressed: () => _getProvider().play(),
+            icon: FaIcon(FontAwesomeIcons.pause));
+      }
+
+      return IconButton(
+          onPressed: () => _getProvider().play(),
+          icon: FaIcon(FontAwesomeIcons.play));
+    }
+    return CircularProgressIndicator();
+  }
+
+  String _titleDecider() {
+    try {
+      return _getProvider().getCurrentSong().title;
+    } catch (e) {
+      return "Loading";
+    }
+  }
+
+  String _descDecider() {
+    try {
+      return _getProvider().getCurrentSong().desc;
+    } catch (e) {
+      return "Loading";
+    }
   }
 }
