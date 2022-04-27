@@ -235,6 +235,7 @@ class _DetailAudioPageState extends State<DetailAudioPage> {
   }
 
   dynamic _play() async {
+    if (ap.playerState.playing) return;
     await ap.play();
   }
 
