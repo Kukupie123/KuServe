@@ -1,5 +1,6 @@
 // ignore_for_file: prefer_const_constructors, deprecated_member_use, prefer_const_literals_to_create_immutables, avoid_unnecessary_containers, sized_box_for_whitespace
 
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -22,6 +23,7 @@ class _DetailAudioPageState extends State<DetailAudioPage> {
   int index = 0;
   final ap = AudioPlayer();
   final String baseURL = "https://fierce-reef-25402.herokuapp.com/";
+  bool canPlay = false;
 
   @override
   void dispose() async {
@@ -46,7 +48,6 @@ class _DetailAudioPageState extends State<DetailAudioPage> {
     return StreamBuilder<ProcessingState>(
         stream: ap.processingStateStream,
         builder: (context, state) {
-          bool canPlay = false;
           switch (state.data) {
             case ProcessingState.completed:
               canPlay = false;
@@ -55,7 +56,11 @@ class _DetailAudioPageState extends State<DetailAudioPage> {
             case ProcessingState.ready:
               canPlay = true;
               break;
+            case ProcessingState.buffering:
+              canPlay = true;
+              break;
             default:
+              //check if playing
               canPlay = false;
               break;
           }
@@ -116,11 +121,14 @@ class _DetailAudioPageState extends State<DetailAudioPage> {
                             fontWeight: FontWeight.w700,
                           ),
                         ),
-                        Text(
-                          canPlay ? _songs[index]!.desc : "Loading",
-                          style: GoogleFonts.mallanna(
-                            fontSize: 20,
-                            fontWeight: FontWeight.w500,
+                        SingleChildScrollView(
+                          child: AutoSizeText(
+                            canPlay ? _songs[index]!.desc : "Loading",
+                            style: GoogleFonts.mallanna(
+                              fontSize: 20,
+                              fontWeight: FontWeight.w500,
+                            ),
+                            maxLines: 2,
                           ),
                         ),
                         Padding(
