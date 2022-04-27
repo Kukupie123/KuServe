@@ -1,5 +1,7 @@
 // ignore_for_file: prefer_const_constructors, deprecated_member_use, prefer_const_literals_to_create_immutables, avoid_unnecessary_containers, sized_box_for_whitespace
 
+import 'dart:async';
+
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -50,17 +52,12 @@ class _DetailAudioPageState extends State<DetailAudioPage> {
         builder: (context, state) {
           switch (state.data) {
             case ProcessingState.completed:
-              canPlay = false;
-              index++;
+              _next();
               break;
             case ProcessingState.ready:
               canPlay = true;
               break;
-            case ProcessingState.buffering:
-              canPlay = true;
-              break;
             default:
-              //check if playing
               canPlay = false;
               break;
           }
@@ -143,13 +140,7 @@ class _DetailAudioPageState extends State<DetailAudioPage> {
                                   size: 30,
                                 ),
                               ),
-                              IconButton(
-                                onPressed: canPlay ? _play : null,
-                                icon: FaIcon(
-                                  FontAwesomeIcons.play,
-                                  size: 30,
-                                ),
-                              ),
+                              _playButtonDecider(),
                               IconButton(
                                 onPressed: canPlay ? _next : null,
                                 icon: FaIcon(
@@ -235,28 +226,37 @@ class _DetailAudioPageState extends State<DetailAudioPage> {
   }
 
   dynamic _play() async {
-    if (ap.playerState.playing) return;
+    if (ap.playerState.playing) {
+      await ap.pause();
+      return;
+    }
     await ap.play();
   }
 
   dynamic _next() async {
     await ap.stop();
+    if (index >= _songs.length - 1) return;
     setState(() {
       index++;
     });
+    await _loadSong();
   }
 
   dynamic _prev() async {
     await ap.stop();
+    if (index <= 0) return;
+
     setState(() {
       index--;
     });
+    await _loadSong();
   }
 
   dynamic _loadSong() async {
     if (_songs.isEmpty) {
       await ap.setUrl(baseURL + "CF3Q7YfvH7Q");
       ap.load();
+      // stream = ap.processingStateStream;
       return;
     }
 
@@ -264,9 +264,31 @@ class _DetailAudioPageState extends State<DetailAudioPage> {
       String url = baseURL + _songs[index]!.id.toString();
       await ap.setUrl(url);
       ap.load();
+      //stream = ap.processingStateStream;
     } else {
       ap.setUrl(baseURL + "CF3Q7YfvH7Q");
       ap.load();
+      // stream = ap.processingStateStream;
+    }
+  }
+
+  Widget _playButtonDecider() {
+    if (ap.playerState.playing) {
+      return IconButton(
+        onPressed: canPlay ? _play : null,
+        icon: FaIcon(
+          FontAwesomeIcons.pause,
+          size: 30,
+        ),
+      );
+    } else {
+      return IconButton(
+        onPressed: canPlay ? _play : null,
+        icon: FaIcon(
+          FontAwesomeIcons.play,
+          size: 30,
+        ),
+      );
     }
   }
 }
