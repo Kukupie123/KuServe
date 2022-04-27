@@ -167,7 +167,7 @@ class _PlaylistWidgetState extends State<PlaylistWidget> {
       var a = await Provider.of<ProviderPlaylist>(context, listen: false)
           .processPlaylist();
 
-      Navigator.pushNamed(context, Routes.playlistCombined, arguments: a);
+      Navigator.pushNamed(context, Routes.listSongs, arguments: a);
       _working = false;
     } on Exception catch (e) {
       SmartDialog.showLoading(
