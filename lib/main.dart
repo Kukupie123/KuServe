@@ -31,9 +31,10 @@ class MyApp extends StatelessWidget {
           primarySwatch: Colors.blueGrey,
         ),
         onGenerateRoute: Routes.generateRoute,
-        initialRoute: Routes.playListCombine,
+        initialRoute: Routes.home,
       ),
     );
   }
 }
 //TODO: add helpful details such as total songs and useful info
+//flutter run -d web-server --web-port 8080 --web-hostname 0.0.0.0

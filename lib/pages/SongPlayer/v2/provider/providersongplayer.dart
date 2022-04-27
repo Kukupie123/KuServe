@@ -8,7 +8,7 @@ import 'package:just_audio/just_audio.dart';
 import '../../../../models/MinimalVideo.dart';
 
 class ProviderSongPlayer with ChangeNotifier {
-  final String _baseURL = "https://uttube-kuserv-api.herokuapp.com/";
+  final String _baseURL = "https://kukukode-kuserv.herokuapp.com/cache/";
 
   var _ap = AudioPlayer();
 
@@ -53,6 +53,7 @@ class ProviderSongPlayer with ChangeNotifier {
     List<AudioSource> playlistSongs = [];
     for (var song in _songs) {
       final uri = Uri.parse(_baseURL + song!.id);
+      log("url added to playlist $uri");
       playlistSongs.add(AudioSource.uri(uri, tag: song));
     }
     _playlist = ConcatenatingAudioSource(children: playlistSongs);
