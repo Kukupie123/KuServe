@@ -8,7 +8,7 @@ import 'package:utube_playlist_combiner/pages/playlist%20combiner/PagePlaylist.d
 
 class Routes {
   static const String playListCombine = "/Playlist-combiner";
-  static const String playlistCombined = "/combined";
+  static const String listSongs = "/combined";
   static const String home = "/";
 
   static const String songsPlayer = "/songs-player";
@@ -19,7 +19,7 @@ class Routes {
         return _GeneratePageRoute(settings.arguments,
             routeName: settings.name!, widget: PagePlaylist());
 
-      case playlistCombined:
+      case listSongs:
         return _GeneratePageRoute(settings.arguments,
             routeName: settings.name!, widget: PageListSong());
 

@@ -37,7 +37,7 @@ class MyApp extends StatelessWidget {
           primarySwatch: Colors.blueGrey,
         ),
         onGenerateRoute: Routes.generateRoute,
-        initialRoute: Routes.songsPlayer,
+        initialRoute: Routes.playListCombine,
       ),
     );
   }
