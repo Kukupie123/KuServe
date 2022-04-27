@@ -59,7 +59,6 @@ class _SongsPlayerWidgetState extends State<SongsPlayerWidget> {
     }
   }
 
-//TODO: Global play pause using provider
   @override
   Widget build(BuildContext context) {
     Future.delayed(

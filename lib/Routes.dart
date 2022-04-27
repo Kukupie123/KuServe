@@ -2,7 +2,7 @@
 
 import 'package:flutter/cupertino.dart';
 import 'package:utube_playlist_combiner/pages/HomePage/PageHome.dart';
-import 'package:utube_playlist_combiner/pages/SongPlayer/v2/detailaudiopage.dart';
+import 'package:utube_playlist_combiner/pages/SongPlayer/v2/PageSongPlayerWrapper.dart';
 import 'package:utube_playlist_combiner/pages/listSongs/PageListSong.dart';
 import 'package:utube_playlist_combiner/pages/playlist%20combiner/PagePlaylist.dart';
 
@@ -29,8 +29,7 @@ class Routes {
 
       case songsPlayer:
         return _GeneratePageRoute(settings.arguments,
-            widget: DetailAudioPage(parentsSetting: settings),
-            routeName: settings.name!);
+            widget: PageSongPlayerWrapper(), routeName: settings.name!);
     }
     throw Exception("No route found");
   }

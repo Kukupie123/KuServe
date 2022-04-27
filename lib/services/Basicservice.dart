@@ -1,4 +1,4 @@
-// ignore_for_file: unnecessary_new
+// ignore_for_file: unnecessary_new, file_names
 
 import 'dart:math';
 

@@ -19,6 +19,12 @@ class PlaylistWidget extends StatefulWidget {
 }
 
 class _PlaylistWidgetState extends State<PlaylistWidget> {
+  @override
+  void dispose() {
+    super.dispose();
+    Provider.of<ProviderPlaylist>(context, listen: false).dispose();
+  }
+
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
   bool _play = true;

@@ -15,7 +15,6 @@ import 'package:utube_playlist_combiner/services/Basicservice.dart';
 
 import 'SongWidget.dart';
 
-//TODO: Show songs that have been loaded
 class ListSongWidget extends StatefulWidget {
   final RouteSettings parentSetting;
   const ListSongWidget({Key? key, required this.parentSetting})
@@ -27,12 +26,13 @@ class ListSongWidget extends StatefulWidget {
 
 class _ListSongWidgetState extends State<ListSongWidget> {
   @override
-  void initState() {
-    super.initState();
+  void dispose() {
+    super.dispose();
   }
 
   @override
-  Widget build(BuildContext context) {
+  void initState() {
+    super.initState();
     var providerCombined =
         Provider.of<ProviderListSong>(context, listen: false);
     if (widget.parentSetting.arguments != null)
@@ -40,7 +40,10 @@ class _ListSongWidgetState extends State<ListSongWidget> {
           widget.parentSetting.arguments as List<String?>;
 
     providerCombined.getVideoItemsFromSongs();
+  }
 
+  @override
+  Widget build(BuildContext context) {
     return Scaffold(
       bottomNavigationBar: TitledBottomNavigationBar(
           onTap: (index) {
@@ -98,7 +101,6 @@ class _ListSongWidgetState extends State<ListSongWidget> {
                 ),
               ),
               Column(
-                //TODO move button on stack and overlay with list
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 mainAxisSize: MainAxisSize.max,
                 children: [

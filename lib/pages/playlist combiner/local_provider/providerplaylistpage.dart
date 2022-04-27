@@ -33,6 +33,20 @@ class ProviderPlaylist extends ChangeNotifier {
     notifyListeners();
   }
 
+  @override
+  void dispose() {
+    var it = playlistInputFields.iterator;
+
+    while (it.moveNext()) {
+      try {
+        it.current.tec.dispose();
+      } catch (e) {
+        print(e);
+      }
+    }
+    super.dispose();
+  }
+
   ///Gets all the songs from the playlist entered in the input fields
   Future<List<String?>> processPlaylist() async {
     var urls = []; //To store the raw urls from the [playlistInputFields]
