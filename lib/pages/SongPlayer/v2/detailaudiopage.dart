@@ -179,20 +179,19 @@ class _DetailAudioPageState extends State<DetailAudioPage> {
             bottom: 10,
             child: Padding(
               padding: const EdgeInsets.all(8.0),
-              child: Row(
-                mainAxisSize: MainAxisSize.max,
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  SongCardWidget(
-                      thumb:
-                          "https://images.unsplash.com/photo-1650928800498-034549200857?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80",
-                      title: "Last song"),
-                  Icon(FontAwesomeIcons.arrowRightArrowLeft),
-                  SongCardWidget(
-                      thumb:
-                          "https://images.unsplash.com/photo-1650928800498-034549200857?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80",
-                      title: "Last song"),
-                ],
+              child: SingleChildScrollView(
+                scrollDirection: Axis.horizontal,
+                child: Row(
+                  mainAxisSize: MainAxisSize.max,
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Icon(FontAwesomeIcons.arrowRightArrowLeft),
+                    // SongCardWidget(
+                    //     thumb:
+                    //         "https://images.unsplash.com/photo-1650928800498-034549200857?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80",
+                    //     title: "Last song"),
+                  ],
+                ),
               ),
             ),
           )
