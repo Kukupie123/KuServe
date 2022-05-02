@@ -11,51 +11,30 @@ const app = express()
 const Ffmpeg = require('fluent-ffmpeg')
 const ytdl = require('ytdl-core')
 const writableStream = require('through2')
-const songs = ['VMcWJZweha4', 'd1yTyAh8IA8']
+const songs = ['VMcWJZweha4', 'd1yTyAh8IA8', '4xFDmYl3l6w', 'Pj2miRJ6bZs', 'UkI4KejmSfY']
 
 // ------STREAM CONCAT---------------
 // Stream append libraries
-const MultiStream = require('multistream')
 const ss = require('stream-stream')
 let gg = ss()
-// Variables
-
-// Functions
-
-function multiStream () { // Doesnt work
-  const ms = new MultiStream(stream(songs[0].stream(), stream(songs[1].stream())))
-  return ms
-}
-
-function stream_stream () {
-
-  songs.forEach((r) => {
-    gg.write(stream(r).stream())
-  })
-}
 
 // ------------------------------
 
-// Default page
-app.get('/', (req, res) => {
-  console.log('Sending homepage')
-  const file = path.resolve(__dirname, '../index.html')
-  res.sendFile((file))
-})
-
 // Download video
-app.get('/:id', (req, res) => {
-  const id = req.params.id
-  stream_stream_concat(songs, 0)
-  gg.pipe(res)
-  try {
-    console.log('Streaming video')
+app.get('/video/:id', (req, res) => {
 
+  try {
+    const id = req.params.id
+    stream(id).pipe(res)
   } catch (e) {
     console.log(e)
     res.sendStatus(500, e)
 
   }
+})
+
+app.get('/test', () => {
+  stream_stream_concat(songs, 0)
 })
 
 // Starting server
@@ -85,7 +64,6 @@ function stream_stream_parallel () {
 // Loads the song after one song is over
 function stream_stream_concat (list, index) {
   if (index > list.length) {
-    gg.end()
     console.log('Finished playing all songs')
     return
   }
@@ -93,6 +71,7 @@ function stream_stream_concat (list, index) {
   let ff = new Ffmpeg(vid)
   try {
     let audio = ff.format('mp3')
+    console.log('Playing ', list[index])
 
     // Event listener will play the next song once this is done
     audio.on('end', () => {
