@@ -8,7 +8,6 @@ import 'package:just_audio/just_audio.dart';
 import 'package:provider/provider.dart';
 import 'package:utube_playlist_combiner/models/MinimalVideo.dart';
 import 'package:utube_playlist_combiner/pages/SongPlayer/v2/provider/providersongplayer.dart';
-import 'package:utube_playlist_combiner/pages/SongPlayer/v2/songcard.dart';
 
 class DetailAudioPage extends StatefulWidget {
   final RouteSettings parentsSetting;
@@ -23,6 +22,7 @@ class DetailAudioPage extends StatefulWidget {
 }
 
 class _DetailAudioPageState extends State<DetailAudioPage> {
+  final aud = AudioPlayer();
   @override
   void dispose() async {
     super.dispose();
@@ -32,17 +32,21 @@ class _DetailAudioPageState extends State<DetailAudioPage> {
   void initState() {
     super.initState();
 
+    // aud.setUrl("https://kukukode-kuserv.herokuapp.com/cache/4xFDmYl3l6w");
+
     if (widget.parentsSetting.arguments != null) {
       Provider.of<ProviderSongPlayer>(context, listen: false).initialize(
           widget.parentsSetting.arguments as List<MinimalVideoItem?>);
     }
   }
 
-  @override
-  Widget build(BuildContext context) {
+  // dynamic p() async {
+  //   aud.play();
+  // }
+
+  Widget _origin() {
     final double height = MediaQuery.of(context).size.height;
     final double width = MediaQuery.of(context).size.width;
-
     return Scaffold(
       backgroundColor: Color(0xFfdee7fa),
       body: Stack(
@@ -200,6 +204,18 @@ class _DetailAudioPageState extends State<DetailAudioPage> {
     );
   }
 
+  @override
+  Widget build(BuildContext context) {
+    final double height = MediaQuery.of(context).size.height;
+    final double width = MediaQuery.of(context).size.width;
+    return _origin();
+    // return IconButton(
+    //     onPressed: () async {
+    //       await aud.play();
+    //     },
+    //     icon: Text("TEST1"));
+  }
+
   ProviderSongPlayer _getProvider() {
     return Provider.of<ProviderSongPlayer>(context, listen: false);
   }
@@ -217,7 +233,7 @@ class _DetailAudioPageState extends State<DetailAudioPage> {
         return AssetImage("2.gif");
       case ProcessingState.idle:
         //_getProvider().loadSongs();
-        return AssetImage("3.gif");
+        return AssetImage("1.gif");
     }
   }
 

@@ -1,0 +1,108 @@
+/* eslint-disable no-unused-vars,padded-blocks,no-template-curly-in-string,quotes,no-multiple-empty-lines,indent,camelcase */
+// noinspection JSCheckFunctionSignatures
+// noinspection JSCheckFunctionSignatures
+
+const fs = require('fs')
+const path = require('path')
+const args = require('minimist')(process.argv.slice(2))
+const port = args.p || args.port || process.env.PORT || 80
+const express = require('express')
+const app = express()
+const Ffmpeg = require('fluent-ffmpeg')
+const ytdl = require('ytdl-core')
+const writableStream = require('through2')
+const songs = ['VMcWJZweha4', 'd1yTyAh8IA8']
+
+// ------STREAM CONCAT---------------
+// Stream append libraries
+const MultiStream = require('multistream')
+const ss = require('stream-stream')
+let gg = ss()
+// Variables
+
+// Functions
+
+function multiStream () { // Doesnt work
+  const ms = new MultiStream(stream(songs[0].stream(), stream(songs[1].stream())))
+  return ms
+}
+
+function stream_stream () {
+
+  songs.forEach((r) => {
+    gg.write(stream(r).stream())
+  })
+}
+
+// ------------------------------
+
+// Default page
+app.get('/', (req, res) => {
+  console.log('Sending homepage')
+  const file = path.resolve(__dirname, '../index.html')
+  res.sendFile((file))
+})
+
+// Download video
+app.get('/:id', (req, res) => {
+  const id = req.params.id
+  stream_stream_concat(songs, 0)
+  gg.pipe(res)
+  try {
+    console.log('Streaming video')
+
+  } catch (e) {
+    console.log(e)
+    res.sendStatus(500, e)
+
+  }
+})
+
+// Starting server
+app.listen(80, () => {
+  console.log('http://localhost:', port)
+})
+
+//Simple stream the given song and return a readable audio stream
+function stream (id) {
+  console.log('Streaming ', id)
+  const vid = ytdl(id)
+  const ff = new Ffmpeg(vid)
+  try {
+    const aud = ff.format('mp3')
+    return aud
+  } catch (e) {
+    console.log('Error when audio streaming: ', id, ' With error ', e)
+  }
+
+}
+
+// Loads all the songs at once in parallel, be careful might eat a lot of bandwidth
+function stream_stream_parallel () {
+
+}
+
+// Loads the song after one song is over
+function stream_stream_concat (list, index) {
+  if (index > list.length) {
+    gg.end()
+    console.log('Finished playing all songs')
+    return
+  }
+  let vid = ytdl(list[index])
+  let ff = new Ffmpeg(vid)
+  try {
+    let audio = ff.format('mp3')
+
+    // Event listener will play the next song once this is done
+    audio.on('end', () => {
+      console.log('Finished playing ', list[index])
+      index = index + 1
+      stream_stream_concat(list, index)
+    })
+
+    gg.write(audio.stream())
+  } catch (e) {
+    console.log('Error on stream_concat id ', list[index], 'Code ', e)
+  }
+}

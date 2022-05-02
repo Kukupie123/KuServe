@@ -1,6 +1,7 @@
 // ignore_for_file: prefer_final_fields, unused_field
 
 import 'dart:developer';
+import 'dart:html';
 
 import 'package:flutter/cupertino.dart';
 import 'package:just_audio/just_audio.dart';
@@ -8,7 +9,7 @@ import 'package:just_audio/just_audio.dart';
 import '../../../../models/MinimalVideo.dart';
 
 class ProviderSongPlayer with ChangeNotifier {
-  final String _baseURL = "https://kukukode-kuserv.herokuapp.com/cache/";
+  final String _baseURL = "https://kukukode-kuserv.herokuapp.com/";
 
   var _ap = AudioPlayer();
 
@@ -58,12 +59,33 @@ class ProviderSongPlayer with ChangeNotifier {
     }
     _playlist = ConcatenatingAudioSource(children: playlistSongs);
     await _ap.setAudioSource(_playlist);
+
+    //NOW!!!!!!!!!!!!!!!!!!! we have loaded all songs and shit BUT safari only plays when we touch once so we have to do these steps to UNLOCK the songs to be used freely
+
+    //Add event listener
+    window.addEventListener("touchstart", (event) async {
+      print("TOUCH START@!!!");
+
+      //Play, pause and reset time of each song
+
+      int i = 0;
+      while (true) {
+        if (i > _songs.length) break;
+        await _ap.play();
+        await _ap.pause();
+        await _ap.seekToNext();
+        i++;
+      }
+
+      await _ap.seek(null, index: 0);
+    });
   }
 
   ///Sets the song and then notifies
   void initialize(List<MinimalVideoItem?> songs) async {
-    _ap.setCanUseNetworkResourcesForLiveStreamingWhilePaused(true);
     _songs = songs; //initialize songs like
+
+    await _ap.setVolume(1.0);
     await loadSongs();
 
     //listeners
@@ -92,7 +114,5 @@ class ProviderSongPlayer with ChangeNotifier {
         notifyListeners();
       }
     });
-
-    await _ap.play();
   }
 }
